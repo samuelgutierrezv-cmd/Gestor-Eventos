@@ -1,10 +1,11 @@
 package org.samuel.gestor_eventos.modelos;
 
 import org.samuel.gestor_eventos.enums.EstadoAsiento;
+import org.samuel.gestor_eventos.interfaces.creacion.EventoComponente;
 
 import java.util.ArrayList;
 
-public class Recinto {
+public class Recinto implements EventoComponente {
     private int id;
     private String direccion;
     private String nombre;
@@ -57,5 +58,25 @@ public class Recinto {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean actualizar(EventoComponente componente) {
+        return false;
+    }
+
+    @Override
+    public boolean elminarEvento(int id) {
+        return false;
+    }
+
+    @Override
+    public EventoComponente buscar(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean guadarComponente(EventoComponente componente) {
+        return false;
     }
 }

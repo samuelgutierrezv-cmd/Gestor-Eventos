@@ -1,9 +1,10 @@
 package org.samuel.gestor_eventos.enums;
 
 public enum EstadoEvento {
-    BORRADO,
+    BORRADOR,
     PUBLICADO,
     PAUSADO,
     CANCELADO,
-    FINALIZADO
+    FINALIZADO,
+    ACTIVO
 }

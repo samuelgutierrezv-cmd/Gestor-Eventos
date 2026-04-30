@@ -1,8 +1,9 @@
 package org.samuel.gestor_eventos.modelos;
 
 import org.samuel.gestor_eventos.enums.EstadoAsiento;
+import org.samuel.gestor_eventos.interfaces.creacion.EventoComponente;
 
-public class Asiento {
+public class Asiento implements EventoComponente {
     private int id;
     private int fila;
     private int numero;
@@ -45,5 +46,25 @@ public class Asiento {
 
     public void setEstado(EstadoAsiento estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public boolean actualizar(EventoComponente componente) {
+        return false;
+    }
+
+    @Override
+    public boolean elminarEvento(int id) {
+        return false;
+    }
+
+    @Override
+    public EventoComponente buscar(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean guadarComponente(EventoComponente componente) {
+        return false;
     }
 }

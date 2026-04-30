@@ -1,24 +1,28 @@
 package org.samuel.gestor_eventos.modelos;
 
+import org.samuel.gestor_eventos.enums.CategoriaEvento;
 import org.samuel.gestor_eventos.enums.EstadoEvento;
-import org.samuel.gestor_eventos.enums.Politicas;
+import org.samuel.gestor_eventos.interfaces.creacion.EventoComponente;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
-public class Evento {
-    private String categoria;
+//implementando la interface cloneable
+public class Evento implements EventoComponente, Cloneable {
+
+    private CategoriaEvento categoria;
     private int id;
     private String nombre;
     private String actividadProgramada;
     private String descripcion;
     private String ciudad;
     private LocalDate fecha;
-    private  int hora;
-    private Politicas politica;
+    private  String hora;
+    private String politica;
     private Recinto recinto;
     private EstadoEvento estado;
 
-    public Evento(String categoria, int id, String nombre, String actividadProgramada, String descripcion, String ciudad, LocalDate fecha, int hora, Politicas politica, Recinto recinto, EstadoEvento estado) {
+    public Evento(CategoriaEvento categoria, int id, String nombre, String actividadProgramada, String descripcion, String ciudad, LocalDate fecha, String hora,String politica, Recinto recinto, EstadoEvento estado) {
         this.categoria = categoria;
         this.id = id;
         this.nombre = nombre;
@@ -32,6 +36,18 @@ public class Evento {
         this.estado = estado;
     }
 
+    //metodo implementaso de la inteface cloneable que clona este mismo objeto
+    @Override
+    public Evento clone() {
+        try {
+            return (Evento) super.clone();
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    // getter y setter
     public String getNombre() {
         return nombre;
     }
@@ -40,7 +56,7 @@ public class Evento {
         return id;
     }
 
-    public String getCategoria() {
+    public CategoriaEvento getCategoria() {
         return categoria;
     }
 
@@ -60,11 +76,11 @@ public class Evento {
         return fecha;
     }
 
-    public int getHora() {
+    public String getHora() {
         return hora;
     }
 
-    public Politicas getPolitica() {
+    public String getPolitica() {
         return politica;
     }
 
@@ -76,7 +92,7 @@ public class Evento {
         return estado;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(CategoriaEvento categoria) {
         this.categoria = categoria;
     }
 
@@ -104,11 +120,11 @@ public class Evento {
         this.fecha = fecha;
     }
 
-    public void setHora(int hora) {
+    public void setHora(String hora) {
         this.hora = hora;
     }
 
-    public void setPolitica(Politicas politica) {
+    public void setPolitica(String politica) {
         this.politica = politica;
     }
 
@@ -118,5 +134,25 @@ public class Evento {
 
     public void setEstado(EstadoEvento estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public boolean actualizar(EventoComponente componente) {
+        return false;
+    }
+
+    @Override
+    public boolean elminarEvento(int id) {
+        return false;
+    }
+
+    @Override
+    public EventoComponente buscar(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean guadarComponente(EventoComponente componente) {
+        return false;
     }
 }
