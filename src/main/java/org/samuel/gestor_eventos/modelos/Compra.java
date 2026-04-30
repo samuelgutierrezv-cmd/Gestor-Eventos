@@ -2,12 +2,13 @@ package org.samuel.gestor_eventos.modelos;
 
 import org.samuel.gestor_eventos.enums.EstadoCompras;
 import org.samuel.gestor_eventos.interfaces.creacion.Pasarela;
+import org.samuel.gestor_eventos.interfaces.estructura.CompraInterface;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Compra implements Pasarela {
+public class Compra implements Pasarela, CompraInterface {
     private int id;
     private Usuario usuarioAsociado;
     private Evento eventoAsociado;
@@ -58,8 +59,23 @@ public class Compra implements Pasarela {
         return estado;
     }
 
+    @Override
+    public double definirValorTotal() {
+        return 0;
+    }
+
+    @Override
+    public String definirServicios() {
+        return "";
+    }
+
     public ArrayList<String> getServiciosAdicionales() {
         return serviciosAdicionales;
+    }
+
+    @Override
+    public boolean annadirServiciosAdicionales(ArrayList<String> servicios) {
+        return false;
     }
 
     public void setId(int id) {
