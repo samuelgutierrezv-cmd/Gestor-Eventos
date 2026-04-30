@@ -1,15 +1,16 @@
 package org.samuel.gestor_eventos.modelos;
 
 import org.samuel.gestor_eventos.enums.EstadoEntrada;
+import org.samuel.gestor_eventos.interfaces.creacion.Pasarela;
 
-public class Entrada {
+public class Entrada implements Pasarela {
     private int id;
     private Zona zona;
     private Asiento asiento;
-    private float precioFinal;
+    private double precioFinal;
     private EstadoEntrada estado;
 
-    public Entrada(int id, Zona zona, Asiento asiento, float precioFinal, EstadoEntrada estado) {
+    public Entrada(int id, Zona zona, Asiento asiento, double precioFinal, EstadoEntrada estado) {
         this.id = id;
         this.zona = zona;
         this.asiento = asiento;
@@ -21,7 +22,7 @@ public class Entrada {
         return id;
     }
 
-    public float getPrecioFinal() {
+    public double getPrecioFinal() {
         return precioFinal;
     }
 
@@ -45,7 +46,7 @@ public class Entrada {
         this.zona = zona;
     }
 
-    public void setPrecioFinal(float precioFinal) {
+    public void setPrecioFinal(double precioFinal) {
         this.precioFinal = precioFinal;
     }
 
@@ -55,5 +56,25 @@ public class Entrada {
 
     public void setEstado(EstadoEntrada estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public boolean actualizar(Pasarela pasarela) {
+        return false;
+    }
+
+    @Override
+    public boolean eliminar(int id) {
+        return false;
+    }
+
+    @Override
+    public Pasarela buscar(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean guardar(Pasarela pasarela) {
+        return false;
     }
 }

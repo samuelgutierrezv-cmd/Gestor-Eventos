@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.scene.Node;
@@ -17,9 +18,14 @@ public class HelloController {
     private Label welcomeText;
 
     @FXML
+    private TextField feel;
+
+    @FXML
     protected void onHelloButtonClick(ActionEvent event) throws IOException {
+        String nombre  = feel.getText();
+        System.out.println("Hola " + nombre + " como estas");
         FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/org/samuel/gestor_eventos/vista.fxml")
+                getClass().getResource("/org/samuel/gestor_eventos/login.fxml")
         );
 
         Parent root = loader.load();
@@ -30,4 +36,5 @@ public class HelloController {
         ventana.show();
         welcomeText.setText("Welcome to JavaFX Application!");
     }
+
 }

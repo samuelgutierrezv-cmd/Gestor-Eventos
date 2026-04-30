@@ -1,0 +1,91 @@
+/* Fondo general */
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: linear-gradient(to bottom right, #0f172a, #020617);
+}
+
+/* TARJETA */
+.card {
+    -fx-background-color: #1e293b;
+    -fx-background-radius: 18;
+    -fx-padding: 25;
+    -fx-spacing: 12;
+    -fx-max-width: 350;
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 15, 0, 0, 5);
+}
+
+/* TÍTULO */
+.label-title {
+    -fx-text-fill: #f1f5f9;
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+}
+
+/* LABELS NORMALES */
+.label {
+    -fx-text-fill: #cbd5f5;
+}
+
+/* INPUTS */
+.text-field, .password-field, .combo-box {
+    -fx-background-color: #334155;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+    -fx-border-color: transparent;
+    -fx-font-size: 13px;
+}
+
+/* EFECTO FOCUS (🔥 PRO) */
+.text-field:focused, .password-field:focused, .combo-box:focused {
+    -fx-border-color: #3b82f6;
+    -fx-border-width: 1.5;
+}
+
+/* BOTÓN PRINCIPAL */
+.button-primary {
+    -fx-background-color: linear-gradient(to right, #3b82f6, #2563eb);
+    -fx-text-fill: white;
+    -fx-background-radius: 12;
+    -fx-font-weight: bold;
+    -fx-pref-height: 40;
+    -fx-cursor: hand;
+}
+
+.button-primary:hover {
+    -fx-background-color: linear-gradient(to right, #2563eb, #1d4ed8);
+}
+
+/* BOTÓN SECUNDARIO */
+.button-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: #3b82f6;
+    -fx-text-fill: #3b82f6;
+    -fx-border-radius: 12;
+    -fx-pref-height: 40;
+    -fx-cursor: hand;
+}
+
+.button-secondary:hover {
+    -fx-background-color: rgba(59,130,246,0.1);
+}
+
+/* COMBOBOX (flecha y lista) */
+.combo-box {
+    -fx-background-insets: 0;
+}
+
+.combo-box .list-cell {
+    -fx-text-fill: white;
+    -fx-background-color: #334155;
+}
+
+.combo-box-popup .list-view {
+    -fx-background-color: #1e293b;
+}
+
+/* PLACEHOLDER */
+.text-field:empty, .password-field:empty {
+    -fx-prompt-text-fill: #94a3b8;
+}

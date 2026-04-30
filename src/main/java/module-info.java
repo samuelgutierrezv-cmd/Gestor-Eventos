@@ -10,6 +10,7 @@ module org.samuel.gestor_eventos {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens org.samuel.gestor_eventos to javafx.fxml;
     exports org.samuel.gestor_eventos;

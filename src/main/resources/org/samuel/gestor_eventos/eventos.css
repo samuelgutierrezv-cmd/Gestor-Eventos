@@ -1,0 +1,239 @@
+/* ════════════════════════════════════════════════════════
+   eventos.css  —  tema oscuro coherente con login.css
+   ════════════════════════════════════════════════════════ */
+
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #0f172a;
+}
+
+/* ── Contenedor principal ── */
+.pane-principal {
+    -fx-background-color: #0f172a;
+    -fx-alignment: top-center;
+}
+
+/* ── HEADER ── */
+.header {
+    -fx-background-color: #1e293b;
+    -fx-padding: 14 24 14 24;
+    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 12, 0, 0, 4);
+}
+
+.header-title {
+    -fx-text-fill: #e2e8f0;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+/* ── BARRA FILTROS ── */
+.filtros-bar {
+    -fx-background-color: #0f172a;
+    -fx-padding: 12 20 10 20;
+    -fx-alignment: center-left;
+}
+
+.filtro-input {
+    -fx-background-color: #1e293b;
+    -fx-text-fill: #e2e8f0;
+    -fx-prompt-text-fill: #475569;
+    -fx-background-radius: 8;
+    -fx-border-color: #334155;
+    -fx-border-radius: 8;
+    -fx-padding: 7 12 7 12;
+}
+
+.filtro-input:focused {
+    -fx-border-color: #3b82f6;
+}
+
+.filtro-combo {
+    -fx-background-color: #1e293b;
+    -fx-text-fill: #e2e8f0;
+    -fx-background-radius: 8;
+    -fx-border-color: #334155;
+    -fx-border-radius: 8;
+    -fx-padding: 4 8 4 8;
+}
+
+.filtro-combo:focused {
+    -fx-border-color: #3b82f6;
+}
+
+.filtro-combo .list-cell {
+    -fx-background-color: #1e293b;
+    -fx-text-fill: #e2e8f0;
+}
+
+.filtro-combo .combo-box-popup .list-view {
+    -fx-background-color: #1e293b;
+    -fx-border-color: #334155;
+}
+
+.filtro-combo .combo-box-popup .list-cell:hover {
+    -fx-background-color: #334155;
+}
+
+.contador-label {
+    -fx-text-fill: #3b82f6;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* ── LISTA ── */
+.eventos-list {
+    -fx-background-color: transparent;
+    -fx-padding: 4 16 16 16;
+}
+
+.eventos-list:focused {
+    -fx-background-insets: 0;
+}
+
+.eventos-list .scroll-bar:vertical {
+    -fx-background-color: #1e293b;
+    -fx-pref-width: 6;
+}
+
+.eventos-list .scroll-bar:vertical .thumb {
+    -fx-background-color: #334155;
+    -fx-background-radius: 3;
+}
+
+.list-cell {
+    -fx-background-color: transparent;
+    -fx-padding: 5 0 5 0;
+}
+
+.list-cell:selected,
+.list-cell:hover {
+    -fx-background-color: transparent;
+}
+
+/* ════════════════════════════════════════════════════════
+   TARJETA DE EVENTO
+   ════════════════════════════════════════════════════════ */
+
+.evento-card {
+    -fx-background-color: #1e293b;
+    -fx-background-radius: 14;
+    -fx-padding: 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.40), 10, 0, 0, 4);
+    -fx-cursor: hand;
+}
+
+.evento-card:hover {
+    -fx-background-color: #243147;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.28), 16, 0, 0, 5);
+}
+
+/* Franja lateral de color según estado */
+.acento-activo      { -fx-background-color: #22c55e; -fx-background-radius: 14 0 0 14; -fx-min-width: 6; -fx-pref-width: 6; }
+.acento-borrador    { -fx-background-color: #f59e0b; -fx-background-radius: 14 0 0 14; -fx-min-width: 6; -fx-pref-width: 6; }
+.acento-cancelado   { -fx-background-color: #ef4444; -fx-background-radius: 14 0 0 14; -fx-min-width: 6; -fx-pref-width: 6; }
+.acento-finalizado  { -fx-background-color: #64748b; -fx-background-radius: 14 0 0 14; -fx-min-width: 6; -fx-pref-width: 6; }
+
+/* ── Zona izquierda (ícono + franja) ── */
+.evento-icon-box {
+    -fx-alignment: center;
+    -fx-padding: 0 14 0 18;
+}
+
+.evento-icon {
+    -fx-font-size: 30px;
+}
+
+/* ── Cuerpo central ── */
+.evento-body {
+    -fx-padding: 14 10 14 0;
+    -fx-spacing: 5;
+}
+
+.evento-nombre {
+    -fx-text-fill: #f1f5f9;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+.evento-descripcion {
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 12px;
+    -fx-wrap-text: true;
+}
+
+/* Fila de meta-info (ciudad, fecha, hora, recinto) */
+.evento-meta-row {
+    -fx-spacing: 16;
+    -fx-alignment: center-left;
+}
+
+.evento-meta {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 12px;
+}
+
+.evento-actividad {
+    -fx-text-fill: #7dd3fc;
+    -fx-font-size: 11px;
+    -fx-font-style: italic;
+}
+
+/* ── Zona derecha (categoría + estado + política) ── */
+.evento-side {
+    -fx-padding: 14 18 14 10;
+    -fx-alignment: top-right;
+    -fx-spacing: 8;
+}
+
+/* Badge categoría */
+.badge-categoria {
+    -fx-background-color: #0f3460;
+    -fx-text-fill: #60a5fa;
+    -fx-background-radius: 20;
+    -fx-padding: 3 12 3 12;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* Badge estado */
+.badge-activo     { -fx-background-color: #14532d; -fx-text-fill: #4ade80; -fx-background-radius: 20; -fx-padding: 3 12 3 12; -fx-font-size: 11px; -fx-font-weight: bold; }
+.badge-borrador   { -fx-background-color: #451a03; -fx-text-fill: #fbbf24; -fx-background-radius: 20; -fx-padding: 3 12 3 12; -fx-font-size: 11px; -fx-font-weight: bold; }
+.badge-cancelado  { -fx-background-color: #450a0a; -fx-text-fill: #f87171; -fx-background-radius: 20; -fx-padding: 3 12 3 12; -fx-font-size: 11px; -fx-font-weight: bold; }
+.badge-finalizado { -fx-background-color: #1e293b; -fx-text-fill: #94a3b8; -fx-background-radius: 20; -fx-padding: 3 12 3 12; -fx-font-size: 11px; -fx-font-weight: bold; }
+
+.evento-politica {
+    -fx-text-fill: #475569;
+    -fx-font-size: 10px;
+    -fx-font-style: italic;
+    -fx-wrap-text: true;
+    -fx-max-width: 160;
+    -fx-text-alignment: right;
+}
+
+/* ── BOTONES ── */
+.button-primary {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-padding: 8 18 8 18;
+    -fx-cursor: hand;
+}
+
+.button-primary:hover {
+    -fx-background-color: #2563eb;
+}
+
+.button-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: #3b82f6;
+    -fx-text-fill: #3b82f6;
+    -fx-border-radius: 10;
+    -fx-padding: 8 18 8 18;
+    -fx-cursor: hand;
+}
+
+.button-secondary:hover {
+    -fx-background-color: rgba(59,130,246,0.10);
+}

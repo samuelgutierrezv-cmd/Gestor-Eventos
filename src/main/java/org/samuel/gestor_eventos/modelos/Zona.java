@@ -1,15 +1,16 @@
 package org.samuel.gestor_eventos.modelos;
 
 import org.samuel.gestor_eventos.enums.Sector;
+import org.samuel.gestor_eventos.interfaces.creacion.EventoComponente;
 
 import java.util.ArrayList;
 
-public class Zona {
+public class Zona implements EventoComponente {
     private Sector sector;
     private int id;
     private String nombre;
     private int capacidad;
-    private float precioBase;
+    private double precioBase;
     private ArrayList<String> configuracionAsientos;
 
     public Zona(ZonaBuilder builder){
@@ -20,15 +21,35 @@ public class Zona {
         this.sector = builder.sector;
     }
 
+    @Override
+    public boolean actualizar(EventoComponente componente) {
+        return false;
+    }
+
+    @Override
+    public boolean elminarEvento(int id) {
+        return false;
+    }
+
+    @Override
+    public EventoComponente buscar(int id) {
+        return null;
+    }
+
+    @Override
+    public boolean guadarComponente(EventoComponente componente) {
+        return false;
+    }
+
     public static class ZonaBuilder{
         private Sector sector;
         private int id;
         private String nombre;
         private int capacidad;
-        private float precioBase;
+        private double precioBase;
         private ArrayList<String> configuracionAsientos;
 
-        public ZonaBuilder(float precioBase,int id, Sector sector, String nombre, int capacidad){
+        public ZonaBuilder(double precioBase,int id, Sector sector, String nombre, int capacidad){
             this.capacidad = capacidad;
             this.id = id;
             this.nombre = nombre;
@@ -62,7 +83,7 @@ public class Zona {
         this.capacidad = capacidad;
     }
 
-    public void setPrecioBase(float precioBase) {
+    public void setPrecioBase(double precioBase) {
         this.precioBase = precioBase;
     }
 
@@ -86,7 +107,7 @@ public class Zona {
         return capacidad;
     }
 
-    public float getPrecioBase() {
+    public double getPrecioBase() {
         return precioBase;
     }
 
