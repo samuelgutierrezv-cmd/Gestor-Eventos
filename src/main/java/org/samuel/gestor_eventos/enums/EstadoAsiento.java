@@ -1,7 +1,7 @@
 package org.samuel.gestor_eventos.enums;
 
 public enum EstadoAsiento {
-    DISPONOBLE,
+    DISPONIBLE,
     RESERVADO,
     VENDIDO,
     BLOQUEADO

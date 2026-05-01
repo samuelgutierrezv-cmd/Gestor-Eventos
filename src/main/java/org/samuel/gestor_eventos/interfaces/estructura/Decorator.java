@@ -21,10 +21,10 @@ public abstract class Decorator implements  CompraInterface{
             valor =  2000000;
         }else{
             for(String e : compraInterface.getServiciosAdicionales()) {
-                if (e == "parqueadero") {
-                    valor =+10000000;
-                } else if(e == "vip") {
-                    valor =+ 10000000;
+                if (e.equals("parqueadero")) {
+                    valor += 10000000;
+                } else if(e.equals("vip")) {
+                    valor += 10000000;
                 }
             }
         }

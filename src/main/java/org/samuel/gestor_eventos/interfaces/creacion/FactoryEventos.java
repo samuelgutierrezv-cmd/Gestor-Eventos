@@ -26,7 +26,7 @@ public class FactoryEventos implements CreacionEventos{
     }
 
     @Override
-    public EventoComponente creandoRecinto(int id, String direccion, ArrayList<String> conjuntoZonas, String ciudad, String nombre) {
+    public EventoComponente creandoRecinto(int id, String direccion, ArrayList<Zona> conjuntoZonas, String ciudad, String nombre) {
         return new Recinto(id, direccion, conjuntoZonas, ciudad, nombre);
     }
 

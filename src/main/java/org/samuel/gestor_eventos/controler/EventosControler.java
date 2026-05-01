@@ -1,5 +1,6 @@
 package org.samuel.gestor_eventos.controler;
-
+import org.samuel.gestor_eventos.modelos.Zona;
+import org.samuel.gestor_eventos.enums.Sector;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -102,9 +103,12 @@ public class EventosControler implements Initializable {
     // Reemplaza este método por una llamada a tu EventoDAO
     private List<Evento> cargarEventosDePrueba() {
 
-        ArrayList<String> conjunto = new ArrayList<>();
-        conjunto.add("andes");
-        conjunto.add("monteblacnco");
+        ArrayList<Zona> conjunto = new ArrayList<>();
+        Zona z1 = new Zona.ZonaBuilder(10000, 1, Sector.GENERAL, "Andes", 100).builder();
+        Zona z2 = new Zona.ZonaBuilder(15000, 2, Sector.VIP, "Monteblanco", 50).builder();
+
+        conjunto.add(z1);
+        conjunto.add(z2);
 
         Recinto r1 = new Recinto(1, "Estadio El Campin",   conjunto,  "Bogota", "recinto a");
         Recinto r2 = new Recinto(2, "Teatro Metropolitano",conjunto, "Medellin", "recinto b");

@@ -143,16 +143,50 @@ public class Evento implements EventoComponente, Cloneable {
 
     @Override
     public boolean elminarEvento(int id) {
+        if (recinto != null && recinto.getId() == id) {
+            recinto = null;
+            return true;
+        }
         return false;
     }
 
     @Override
     public EventoComponente buscar(int id) {
+        if (this.id == id) return this;
+
+        if (recinto != null) {
+            return recinto.buscar(id);
+        }
+
         return null;
     }
 
     @Override
     public boolean guadarComponente(EventoComponente componente) {
+        if (componente instanceof Recinto) {
+            this.recinto = (Recinto) componente;
+            return true;
+        }
         return false;
+    }
+
+    // Funciones basicas
+
+    public void publicar() {
+        if (estado == EstadoEvento.PUBLICADO) {
+            throw new IllegalStateException("El evento ya fue publicado");
+        }
+        this.estado = EstadoEvento.PUBLICADO;
+    }
+
+    public void cancelar() {
+        if (estado == EstadoEvento.CANCELADO) {
+            throw new IllegalStateException("El evento ya fue cancelado");
+        }
+        this.estado = EstadoEvento.CANCELADO;
+    }
+
+    public boolean hayDisponibilidad() {
+        return recinto != null && !recinto.getConjuntoZonas().isEmpty();
     }
 }
