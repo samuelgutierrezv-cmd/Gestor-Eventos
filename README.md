@@ -114,24 +114,32 @@ En el desarrollo de la plataforma Gestor-Eventos, se ha determinado la implement
 
 **¿Qué puedo reutilizar de la solución de otros problemas?**
 
-- **MVC (Model-View-Controller)**: Patrón principal usado en JavaFX (Modelo = entidades, Vista = FXML, Controlador = `*Controller`).  
+- **MVC (Model-View-Controller)**: Patrón principal usado en JavaFX (Modelo = entidades, Vista = FXML, Controlador = `*Controller`).
+    
 ✅ La arquitectura del sistema se fundamenta en el patrón MVC para lograr una separación clara de responsabilidades. Se implementa de esta manera para que la lógica de negocio (Modelo) sea totalmente independiente de la interfaz gráfica desarrollada en JavaFX (Vista). Esto permite realizar modificaciones en el diseño de las pantallas sin afectar el procesamiento de los datos, facilitando el mantenimiento y las pruebas unitarias.
 
-- **Repository / DAO**: Para separar el acceso a datos (fácil de cambiar a base de datos real después).
+- **Repository**: Para separar el acceso a datos (fácil de cambiar a base de datos real después).
+
+✅Se define un paquete de interfaces y clases (repository) encargado exclusivamente del ciclo de vida de los datos. Esto separa la lógica de negocio de la implementación técnica del almacenamiento.
 
 - **Strategy**: Para diferentes métodos de pago (Tarjeta, PSE, Efectivo, etc.).
+  
 ✅Se ha seleccionado este patrón para gestionar el requisito RF-007 (Realizar pago). Dado que el sistema debe soportar múltiples métodos de pago simulados (Tarjeta, PSE, Efectivo), el patrón Strategy permite encapsular cada algoritmo de pago en clases independientes que comparten una interfaz común. De esta forma, el sistema puede intercambiar la lógica de pago en tiempo de ejecución sin alterar el flujo de la compra, cumpliendo con el principio de Abierto/Cerrado.
 
 - **Observer**: Para actualizar disponibilidad de asientos en tiempo real.
+  
 ✅El sistema requiere una comunicación eficiente para las Notificaciones (RF-012). Se utiliza el patrón Observer para que los usuarios (observadores) sean notificados automáticamente ante cualquier cambio de estado en un evento (sujeto), como cancelaciones o cambios de horario. Se hace de esta forma para desacoplar el emisor de la noticia de los receptores, permitiendo que múltiples usuarios reaccionen a eventos del sistema en tiempo real.
 
 - **Factory Method**: Para crear diferentes tipos de reportes (PDF, CSV).
+  
 ✅Para el cumplimiento del requisito de Generación de Reportes (RF-011), se emplea el patrón Factory Method. Se hace así para centralizar la creación de los distintos formatos de salida (PDF, CSV). El sistema delega la responsabilidad de instanciar el reporte específico a una clase fábrica, lo que permite que el administrador solicite un informe sin que el cliente de la aplicación necesite conocer la lógica de construcción de cada formato.
 
 - **Singleton**: Para el servicio de autenticación y el gestor de sesiones.
+  
 ✅Se ha implementado este patrón para el control del SessionManager o gestor de sesiones. Dado que solo debe existir una instancia global que represente al usuario autenticado en todo el ciclo de vida de la aplicación, el Singleton garantiza un punto de acceso único. Esto asegura la integridad de la información del usuario mientras navega entre los diferentes módulos (Usuario/Administrador).
 
 - **Decorator**: Para agregar servicios adicionales a una compra (VIP, seguro, etc.).
+  
 ✅La necesidad de ofrecer Servicios Adicionales (RF-050), como acceso VIP o seguros de cancelación, justifica el uso del patrón Decorator. Se utiliza para añadir funcionalidades u opciones a una entrada base de forma dinámica. Se ha decidido por esta aproximación para evitar una explosión de subclases innecesarias, permitiendo que una entrada estándar sea "decorada" con múltiples servicios según la elección del usuario sin modificar la clase original.
 
 Estos patrones permiten cumplir con los **principios SOLID** solicitados en el documento:
