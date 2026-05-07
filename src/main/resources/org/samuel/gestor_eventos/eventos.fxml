@@ -22,8 +22,9 @@
     <HBox styleClass="header" spacing="16">
         <Label text="🗓  Gestor de Eventos" styleClass="header-title"/>
         <StackPane HBox.hgrow="ALWAYS"/>
-        <Button text="+ Nuevo Evento" styleClass="button-primary"   onAction="#irCrearEvento"/>
+        <Button text="Realizar Compra" styleClass="button-primary"   onAction="#irCompras"/>
         <Button text="Cerrar sesión"  styleClass="button-secondary" onAction="#cerrarSesion"/>
+        <Button text="Volver" styleClass="button-secondary" fx:id="btnVolver"  onAction="#volver"/>
     </HBox>
 
     <!-- ── BARRA DE FILTROS ── -->

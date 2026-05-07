@@ -24,21 +24,11 @@
 
     <TextField fx:id="telefonoField" promptText="Número de teléfono"/>
 
-    <ComboBox fx:id="metodoPagoBox" promptText="Método de pago">
-        <items>
-            <FXCollections fx:factory="observableArrayList">
-                <String fx:value="Tarjeta de crédito"/>
-                <String fx:value="Nequi"/>
-                <String fx:value="Daviplata"/>
-                <String fx:value="Efectivo"/>
-            </FXCollections>
-        </items>
-    </ComboBox>
+    <Button text="volver" fx:id="btnVolver" styleClass="button-primary" onAction="#volver"/>
 
     <Button text="Registrarse" styleClass="button-primary" onAction="#registrar"/>
 
     <Button text="Volver al login" styleClass="button-secondary" onAction="#volverLogin"/>
-
 </VBox>
 
 </VBox>

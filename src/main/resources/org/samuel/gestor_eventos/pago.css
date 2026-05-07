@@ -1,0 +1,372 @@
+/* ════════════════════════════════════════════════════════════════
+   pago.css  —  Vista de compra / pago de entradas
+   Mismo tema oscuro que eventos.css y login.css
+   ════════════════════════════════════════════════════════════════ */
+
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #0f172a;
+}
+
+/* ── CONTENEDOR PRINCIPAL ── */
+.pane-principal {
+    -fx-background-color: #0f172a;
+    -fx-alignment: top-center;
+}
+
+/* ── HEADER ── */
+.header {
+    -fx-background-color: #1e293b;
+    -fx-padding: 14 24 14 24;
+    -fx-alignment: center-left;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 12, 0, 0, 4);
+}
+
+.header-title {
+    -fx-text-fill: #e2e8f0;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.header-total {
+    -fx-text-fill: #4ade80;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-padding: 6 14 6 14;
+    -fx-background-color: #14532d;
+    -fx-background-radius: 10;
+}
+
+/* ── SCROLL ── */
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+}
+
+.scroll-pane .scroll-bar:vertical {
+    -fx-background-color: #1e293b;
+    -fx-pref-width: 6;
+}
+
+.scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #334155;
+    -fx-background-radius: 3;
+}
+
+.scroll-content {
+    -fx-padding: 20 24 24 24;
+    -fx-background-color: transparent;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SECCIONES / CARDS
+   ════════════════════════════════════════════════════════════════ */
+
+.seccion-card {
+    -fx-background-color: #1e293b;
+    -fx-background-radius: 14;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 10, 0, 0, 3);
+}
+
+.seccion-titulo {
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    /* letra espaciada, estilo "label sección" */
+    -fx-padding: 0 0 4 0;
+}
+
+/* ── RESUMEN EVENTO ── */
+.evento-resumen-box {
+    -fx-alignment: center-left;
+}
+
+.resumen-nombre {
+    -fx-text-fill: #f1f5f9;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+}
+
+.resumen-detalle {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 12px;
+}
+
+.resumen-precio-box {
+    -fx-background-color: #0f172a;
+    -fx-background-radius: 10;
+    -fx-padding: 12 18 12 18;
+    -fx-alignment: center-right;
+}
+
+.resumen-precio-label {
+    -fx-text-fill: #475569;
+    -fx-font-size: 11px;
+}
+
+.resumen-precio-valor {
+    -fx-text-fill: #4ade80;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+.resumen-zona {
+    -fx-text-fill: #3b82f6;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* ── CANTIDAD ── */
+.cantidad-row {
+    -fx-alignment: center-left;
+}
+
+.btn-cantidad {
+    -fx-background-color: #334155;
+    -fx-text-fill: #e2e8f0;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+    -fx-min-width: 42;
+    -fx-min-height: 42;
+    -fx-cursor: hand;
+}
+
+.btn-cantidad:hover {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+}
+
+.cantidad-num {
+    -fx-text-fill: #f1f5f9;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-min-width: 48;
+    -fx-alignment: center;
+}
+
+.subtotal-box {
+    -fx-alignment: center-right;
+}
+
+.subtotal-label {
+    -fx-text-fill: #475569;
+    -fx-font-size: 11px;
+}
+
+.subtotal-valor {
+    -fx-text-fill: #e2e8f0;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   OPCIONES DE COMPRA (En línea / Físico / Taquilla)
+   ════════════════════════════════════════════════════════════════ */
+
+.opcion-card {
+    -fx-background-color: #0f172a;
+    -fx-background-radius: 12;
+    -fx-padding: 16;
+    -fx-cursor: hand;
+    -fx-border-color: #334155;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-alignment: top-left;
+}
+
+.opcion-card:hover {
+    -fx-border-color: #3b82f6;
+    -fx-background-color: #141f33;
+}
+
+.opcion-selected {
+    -fx-border-color: #3b82f6;
+    -fx-background-color: #0f2040;
+}
+
+.opcion-icon {
+    -fx-font-size: 28px;
+}
+
+.opcion-titulo {
+    -fx-text-fill: #e2e8f0;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+
+.opcion-desc {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 11px;
+}
+
+.opcion-check {
+    -fx-text-fill: #3b82f6;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   MÉTODOS DE PAGO
+   ════════════════════════════════════════════════════════════════ */
+
+.metodo-card {
+    -fx-background-color: #0f172a;
+    -fx-background-radius: 12;
+    -fx-padding: 14 16 14 16;
+    -fx-cursor: hand;
+    -fx-border-color: #334155;
+    -fx-border-radius: 12;
+    -fx-border-width: 2;
+    -fx-alignment: top-left;
+    -fx-min-height: 90;
+}
+
+.metodo-card:hover {
+    -fx-border-color: #3b82f6;
+    -fx-background-color: #141f33;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.20), 10, 0, 0, 3);
+}
+
+.metodo-selected {
+    -fx-border-color: #3b82f6;
+    -fx-background-color: #0f2040;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.30), 12, 0, 0, 4);
+}
+
+.metodo-icon {
+    -fx-font-size: 26px;
+}
+
+.metodo-titulo {
+    -fx-text-fill: #e2e8f0;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+.metodo-desc {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 11px;
+    -fx-wrap-text: true;
+}
+
+/* Fila de método seleccionado */
+.metodo-seleccionado-row {
+    -fx-background-color: #0f172a;
+    -fx-background-radius: 8;
+    -fx-padding: 8 14 8 14;
+    -fx-alignment: center-left;
+}
+
+.metodo-sel-label {
+    -fx-text-fill: #475569;
+    -fx-font-size: 12px;
+}
+
+.metodo-sel-valor {
+    -fx-text-fill: #60a5fa;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   RESUMEN FINAL
+   ════════════════════════════════════════════════════════════════ */
+
+.resumen-final {
+    -fx-border-color: #334155;
+    -fx-border-radius: 14;
+    -fx-border-width: 1;
+}
+
+.resumen-linea-label {
+    -fx-text-fill: #64748b;
+    -fx-font-size: 13px;
+}
+
+.resumen-linea-valor {
+    -fx-text-fill: #cbd5e1;
+    -fx-font-size: 13px;
+}
+
+.resumen-sep {
+    -fx-background-color: #334155;
+    -fx-padding: 0;
+}
+
+.resumen-total-label {
+    -fx-text-fill: #e2e8f0;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+.resumen-total-valor {
+    -fx-text-fill: #4ade80;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   BOTONES
+   ════════════════════════════════════════════════════════════════ */
+
+.footer-acciones {
+    -fx-padding: 4 0 4 0;
+    -fx-alignment: center;
+}
+
+.button-back {
+    -fx-background-color: transparent;
+    -fx-text-fill: #64748b;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-font-size: 13px;
+    -fx-padding: 6 12 6 12;
+}
+
+.button-back:hover {
+    -fx-text-fill: #e2e8f0;
+    -fx-background-color: #334155;
+}
+
+.button-secondary {
+    -fx-background-color: transparent;
+    -fx-border-color: #334155;
+    -fx-text-fill: #94a3b8;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 12 24 12 24;
+    -fx-font-size: 14px;
+    -fx-cursor: hand;
+}
+
+.button-secondary:hover {
+    -fx-border-color: #ef4444;
+    -fx-text-fill: #ef4444;
+}
+
+.button-confirmar {
+    -fx-background-color: #3b82f6;
+    -fx-text-fill: white;
+    -fx-background-radius: 10;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
+    -fx-padding: 12 24 12 24;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.40), 12, 0, 0, 4);
+}
+
+.button-confirmar:hover {
+    -fx-background-color: #2563eb;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.60), 16, 0, 0, 5);
+}
+
+.button-confirmar:pressed {
+    -fx-background-color: #1d4ed8;
+}

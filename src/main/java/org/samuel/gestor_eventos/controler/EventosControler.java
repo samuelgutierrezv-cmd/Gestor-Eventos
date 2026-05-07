@@ -1,4 +1,11 @@
 package org.samuel.gestor_eventos.controler;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
 import org.samuel.gestor_eventos.modelos.Zona;
 import org.samuel.gestor_eventos.enums.Sector;
 import javafx.collections.FXCollections;
@@ -6,15 +13,12 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import org.samuel.gestor_eventos.enums.CategoriaEvento;
 import org.samuel.gestor_eventos.enums.EstadoEvento;
 import org.samuel.gestor_eventos.modelos.Evento;
 import org.samuel.gestor_eventos.modelos.Recinto;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -29,7 +33,6 @@ public class EventosControler implements Initializable {
     @FXML private TextField             filtroCiudad;
     @FXML private ComboBox<String>      filtroCategoria;
     @FXML private ComboBox<String>      filtroEstado;
-
     private ObservableList<Evento> todosLosEventos;
     private FilteredList<Evento>   eventosFiltrados;
 
@@ -88,9 +91,28 @@ public class EventosControler implements Initializable {
 
     // ── Acciones de botones ───────────────────────────────────────────
     @FXML
-    private void irCrearEvento() {
-        // TODO: cargar la vista de creación
-        System.out.println("Navegar a crear evento");
+    private void irCompras(ActionEvent event) throws IOException {
+        try {
+            // Guardamos la escena actual ANTES de cambiar
+            Scene escenaAnterior = ((Node) event.getSource()).getScene();
+
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/samuel/gestor_eventos/pago.fxml"));
+            Parent root = loader.load();
+
+            // Obtenemos el controlador de la nueva pantalla
+            PagoControler pagoController = loader.getController();
+
+            // Pasamos la escena anterior al controlador de Pago
+            pagoController.setEscenaAnterior(escenaAnterior);
+
+            // Cambiamos la escena
+            Stage ventana = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            ventana.setScene(new Scene(root));
+            ventana.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -167,5 +189,24 @@ public class EventosControler implements Initializable {
                         r3, EstadoEvento.FINALIZADO
                 )
         );
+    }
+    // ==================== VARIABLE DE NAVEGACIÓN ====================
+    private Scene escenaAnterior;
+
+    @FXML
+    private Button btnVolver;
+
+    // ==================== MÉTODO PARA RECIBIR ESCENA ANTERIOR ====================
+    public void setEscenaAnterior(Scene escena) {
+        this.escenaAnterior = escena;
+    }
+
+    // ==================== MÉTODO VOLVER ====================
+    @FXML
+    private void volver() {
+        if (escenaAnterior != null) {
+            Stage stage = (Stage) btnVolver.getScene().getWindow();
+            stage.setScene(escenaAnterior);
+        }
     }
 }
