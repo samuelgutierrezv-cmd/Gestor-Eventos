@@ -24,6 +24,8 @@ public class Usuario extends Persona{
         return password;
     }
 
+
+
     public void setMetodosDepagos(ArrayList<String> metodosDepagos) {
         this.metodosDepagos = metodosDepagos;
     }

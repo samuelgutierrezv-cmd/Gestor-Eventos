@@ -35,6 +35,7 @@ public class EventosControler implements Initializable {
     @FXML private ComboBox<String>      filtroEstado;
     private ObservableList<Evento> todosLosEventos;
     private FilteredList<Evento>   eventosFiltrados;
+    private ArrayList<Evento> eventos= new ArrayList<>();
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -104,6 +105,7 @@ public class EventosControler implements Initializable {
 
             // Pasamos la escena anterior al controlador de Pago
             pagoController.setEscenaAnterior(escenaAnterior);
+            pagoController.setListaEventos(eventos);
 
             // Cambiamos la escena
             Stage ventana = (Stage) ((Node) event.getSource()).getScene().getWindow();

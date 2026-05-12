@@ -7,9 +7,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.samuel.gestor_eventos.modelos.Evento;
 
 import java.net.URL;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -62,6 +64,11 @@ public class PagoControler implements Initializable {
 
     // ==================== VARIABLE DE NAVEGACIÓN ====================
     private Scene escenaAnterior;
+    private ArrayList<Evento> eventos = new ArrayList<>();
+
+    public void setListaEventos(ArrayList<Evento> eventos) {
+        this.eventos = eventos;
+    }
 
     @FXML
     private Button btnVolver;

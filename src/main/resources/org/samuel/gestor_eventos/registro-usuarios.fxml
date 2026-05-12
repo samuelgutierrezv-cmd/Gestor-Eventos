@@ -24,11 +24,11 @@
 
     <TextField fx:id="telefonoField" promptText="Número de teléfono"/>
 
-    <Button text="volver" fx:id="btnVolver" styleClass="button-primary" onAction="#volver"/>
+    <Button text="Registro de administrador"  styleClass="button-primary" onAction="#registroAdministrador"/>
 
     <Button text="Registrarse" styleClass="button-primary" onAction="#registrar"/>
 
-    <Button text="Volver al login" styleClass="button-secondary" onAction="#volverLogin"/>
+    <Button text="Volver al login" fx:id="btnVolver" styleClass="button-secondary" onAction="#volver"/>
 </VBox>
 
 </VBox>

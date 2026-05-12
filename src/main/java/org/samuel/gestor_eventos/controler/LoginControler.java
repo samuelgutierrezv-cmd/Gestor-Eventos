@@ -18,13 +18,13 @@ public class LoginControler {
 
     @FXML private TextField emailField;
     @FXML private PasswordField passwordField;
+    private ArrayList<Usuario> usuarios = new ArrayList<>();
 
     @FXML
     private void login(ActionEvent event)throws IOException{
         String email = emailField.getText().trim();
         String pass = passwordField.getText();
         boolean todoCorrecto = false;
-        ArrayList<Usuario> usuarios = new ArrayList<>();
 
         for (Usuario b: usuarios){
             if( b.getCorroElectronico().equalsIgnoreCase(email) && b.getPassword().equals(pass)){
@@ -108,5 +108,31 @@ public class LoginControler {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    public void loginAdministrador(ActionEvent event) throws IOException{
+            try{
+                // Guardamos la escena actual ANTES de cambiar
+                Scene escenaAnterior = ((Node) event.getSource()).getScene();
+
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/samuel/gestor_eventos/login-Administrador.fxml"));
+                Parent root = loader.load();
+
+                // Obtenemos el controlador de la nueva pantalla
+                LoginAdministrador pagoController = loader.getController();
+
+                // Pasamos la escena anterior al controlador de Pago
+                pagoController.setEscenaAnterior(escenaAnterior);
+
+                // Cambiamos la escena
+                Stage ventana = (Stage) ((Node) event.getSource()).getScene().getWindow();
+                ventana.setScene(new Scene(root));
+                ventana.show();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
     }
 }

@@ -11,10 +11,10 @@
 <?import javafx.scene.control.TextField?>
 
 <?import javafx.scene.control.PasswordField?>
-<VBox prefHeight="550.0" prefWidth="700.0" styleClass="pane-principal" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.samuel.gestor_eventos.controler.LoginControler" stylesheets="@login.css" >
+<VBox prefHeight="550.0" prefWidth="700.0" styleClass="pane-principal" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.samuel.gestor_eventos.controler.LoginAdministrador" stylesheets="@login.css" >
     <VBox styleClass="card" spacing="10" maxWidth="300">
 
-        <Label text="Iniciar Sesión" styleClass="label-title"/>
+        <Label text="Iniciar como administrador" styleClass="label-title"/>
 
         <TextField fx:id="emailField" promptText="Correo Gmail"/>
 
@@ -24,7 +24,7 @@
 
         <Button text="Crear cuenta" styleClass="button-secondary" onAction="#irRegistro"/>
 
-        <Button text="Ingresar como Administrador" styleClass="button-secondary" onAction="#loginAdministrador"/>
+        <Button text="Volver logeo ususarios" fx:id="btnVolver" styleClass="button-secondary" onAction="#volver"/>
 
     </VBox>
 
