@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -97,15 +96,14 @@ public class EventosControler implements Initializable {
             // Guardamos la escena actual ANTES de cambiar
             Scene escenaAnterior = ((Node) event.getSource()).getScene();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/samuel/gestor_eventos/pago.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/samuel/gestor_eventos/administrador.fxml"));
             Parent root = loader.load();
 
             // Obtenemos el controlador de la nueva pantalla
-            PagoControler pagoController = loader.getController();
+            AdminControler pagoController = loader.getController();
 
             // Pasamos la escena anterior al controlador de Pago
             pagoController.setEscenaAnterior(escenaAnterior);
-            pagoController.setListaEventos(eventos);
 
             // Cambiamos la escena
             Stage ventana = (Stage) ((Node) event.getSource()).getScene().getWindow();
