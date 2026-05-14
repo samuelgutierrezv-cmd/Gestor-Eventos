@@ -61,12 +61,22 @@ public class Compra implements Pasarela, CompraInterface {
 
     @Override
     public double definirValorTotal() {
-        return 0;
+        double total = 0;
+
+        if (entradas != null) {
+            for (Entrada e : entradas) {
+                total += e.getPrecioFinal();
+            }
+        }
+        return total;
     }
 
     @Override
     public String definirServicios() {
-        return "";
+        if (serviciosAdicionales == null || serviciosAdicionales.isEmpty()) {
+            return "Sin servicios";
+        }
+        return String.join(", ", serviciosAdicionales);
     }
 
     public ArrayList<String> getServiciosAdicionales() {
@@ -75,7 +85,15 @@ public class Compra implements Pasarela, CompraInterface {
 
     @Override
     public boolean annadirServiciosAdicionales(ArrayList<String> servicios) {
-        return false;
+        if (servicios == null || servicios.isEmpty()) {
+            return false;
+        }
+
+        if (serviciosAdicionales == null) {
+            serviciosAdicionales = new ArrayList<>();
+        }
+
+        return serviciosAdicionales.addAll(servicios);
     }
 
     public void setId(int id) {
@@ -120,21 +138,49 @@ public class Compra implements Pasarela, CompraInterface {
 
     @Override
     public boolean actualizar(Pasarela pasarela) {
+
+        if (pasarela instanceof Compra) {
+
+            Compra c = (Compra) pasarela;
+
+            if (this.id == c.id) {
+                this.usuarioAsociado = c.usuarioAsociado;
+                this.eventoAsociado = c.eventoAsociado;
+                this.fechaCompra = c.fechaCompra;
+                this.valor = c.valor;
+                this.estado = c.estado;
+                this.entradas = c.entradas;
+                this.conjuntoItems = c.conjuntoItems;
+                this.serviciosAdicionales = c.serviciosAdicionales;
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean eliminar(int id) {
-        return false;
+        return this.id == id;
     }
 
     @Override
     public Pasarela buscar(int id) {
+
+        if (this.id == id) {
+            return this;
+        }
         return null;
     }
 
     @Override
     public boolean guardar(Pasarela pasarela) {
+
+        if (pasarela instanceof Entrada) {
+            if (entradas == null) {
+                entradas = new ArrayList<>();
+            }
+            return entradas.add((Entrada) pasarela);
+        }
         return false;
     }
 }

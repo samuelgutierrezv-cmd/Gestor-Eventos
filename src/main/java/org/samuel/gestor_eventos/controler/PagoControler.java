@@ -7,7 +7,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.samuel.gestor_eventos.enums.EstadoPago;
+import org.samuel.gestor_eventos.interfaces.comportamiento.PagoBancolombia;
+import org.samuel.gestor_eventos.interfaces.comportamiento.PagoNequi;
+import org.samuel.gestor_eventos.interfaces.comportamiento.PagoTarjeta;
 import org.samuel.gestor_eventos.modelos.Evento;
+import org.samuel.gestor_eventos.modelos.Pago;
 
 import java.net.URL;
 import java.text.NumberFormat;
@@ -183,12 +188,51 @@ public class PagoControler implements Initializable {
     // ── Acciones finales ─────────────────────────────────────────────
     @FXML
     private void confirmarCompra() {
-        System.out.println("=== COMPRA CONFIRMADA ===");
-        System.out.println("Evento   : " + lblEventoNombre.getText());
-        System.out.println("Cantidad : " + cantidad);
-        System.out.println("Método   : " + metodoSeleccionado);
-        System.out.println("Total    : " + lblResumenTotal.getText());
-        // TODO: llamar a CompraDAO.guardarCompra(...) y navegar a confirmación
+
+        double total = (precioUnitario * cantidad)
+                + ((precioUnitario * cantidad) * cargoServicio);
+
+        Pago pago = new Pago(
+                1,
+                total,
+                new java.sql.Date(System.currentTimeMillis()),
+                EstadoPago.PENDIENTE,
+                metodoSeleccionado
+        );
+
+        switch (metodoSeleccionado) {
+
+            case "Nequi":
+                pago.setStrategy(new PagoNequi());
+                break;
+
+            case "PSE":
+                pago.setStrategy(new PagoBancolombia());
+                break;
+
+            default:
+                pago.setStrategy(new PagoTarjeta());
+                break;
+        }
+
+        boolean aprobado = pago.procesarPago();
+
+        if (aprobado) {
+
+            pago.setEstado(EstadoPago.APROBADO);
+
+            System.out.println("=== COMPRA CONFIRMADA ===");
+            System.out.println("Evento   : " + lblEventoNombre.getText());
+            System.out.println("Cantidad : " + cantidad);
+            System.out.println("Método   : " + metodoSeleccionado);
+            System.out.println("Total    : " + lblResumenTotal.getText());
+
+        } else {
+
+            pago.setEstado(EstadoPago.RECHAZADO);
+
+            System.out.println("Pago rechazado");
+        }
     }
 
     @FXML

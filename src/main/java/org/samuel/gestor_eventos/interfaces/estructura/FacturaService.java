@@ -1,8 +1,14 @@
 package org.samuel.gestor_eventos.interfaces.estructura;
 
+import org.samuel.gestor_eventos.modelos.Compra;
+
 public class FacturaService {
 
-    public void realizarFactura(){
-        System.out.println("Realizando Factura");
+    public void generarFactura(Compra compra){
+
+        System.out.println(
+                "Factura generada para la compra #"
+                        + compra.getId()
+        );
     }
 }

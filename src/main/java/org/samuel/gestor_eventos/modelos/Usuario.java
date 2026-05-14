@@ -1,8 +1,10 @@
 package org.samuel.gestor_eventos.modelos;
 
+import org.samuel.gestor_eventos.interfaces.comportamiento.Observer;
+
 import java.util.ArrayList;
 
-public class Usuario extends Persona{
+public class Usuario extends Persona implements Observer {
     private String password;
     private ArrayList<String> metodosDepagos;
 
@@ -28,5 +30,12 @@ public class Usuario extends Persona{
 
     public void setMetodosDepagos(ArrayList<String> metodosDepagos) {
         this.metodosDepagos = metodosDepagos;
+    }
+
+    @Override
+    public void actualizar(String mensaje) {
+
+        System.out.println("Notificación para " + getNombre());
+        System.out.println(mensaje);
     }
 }

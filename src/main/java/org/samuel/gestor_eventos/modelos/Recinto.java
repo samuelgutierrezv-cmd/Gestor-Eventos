@@ -62,11 +62,31 @@ public class Recinto implements EventoComponente {
 
     @Override
     public boolean actualizar(EventoComponente componente) {
+
+        if (componente instanceof Recinto) {
+            Recinto r = (Recinto) componente;
+
+            if (this.id == r.id) {
+                this.nombre = r.nombre;
+                this.direccion = r.direccion;
+                this.ciudad = r.ciudad;
+                return true;
+            }
+        }
+
+        if (conjuntoZonas != null) {
+            for (Zona z : conjuntoZonas) {
+                if (z.actualizar(componente)) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
     @Override
-    public boolean elminarEvento(int id) {
+    public boolean eliminarEvento(int id) {
         return conjuntoZonas.removeIf(z -> z.getId() == id);
     }
 
@@ -82,7 +102,7 @@ public class Recinto implements EventoComponente {
     }
 
     @Override
-    public boolean guadarComponente(EventoComponente componente) {
+    public boolean guardarComponente(EventoComponente componente) {
         if (componente instanceof Zona) {
             if (conjuntoZonas == null) {
                 conjuntoZonas = new ArrayList<>();

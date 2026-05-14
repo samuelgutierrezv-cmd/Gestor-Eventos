@@ -6,7 +6,7 @@ import org.samuel.gestor_eventos.modelos.Usuario;
 
 import java.util.ArrayList;
 
-public class FactoryUsusarios implements CreacionUsuarios{
+public class FactoryUsuarios implements CreacionUsuarios{
     @Override
     public Persona creandoUsuario(int numeroTelefono,String correoElectronico,String nombre,ArrayList<String> metodosDePago, String password) {
         return new Usuario(nombre, 0, correoElectronico,numeroTelefono, metodosDePago,password);

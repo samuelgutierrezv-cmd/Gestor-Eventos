@@ -1,6 +1,6 @@
 package org.samuel.gestor_eventos.modelos;
 
-import org.samuel.gestor_eventos.interfaces.creacion.FactoryUsusarios;
+import org.samuel.gestor_eventos.interfaces.creacion.FactoryUsuarios;
 
 import java.util.ArrayList;
 
