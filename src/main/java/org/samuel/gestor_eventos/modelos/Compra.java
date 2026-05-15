@@ -1,14 +1,14 @@
 package org.samuel.gestor_eventos.modelos;
 
 import org.samuel.gestor_eventos.enums.EstadoCompras;
+import org.samuel.gestor_eventos.interfaces.comportamiento.Iguales;
 import org.samuel.gestor_eventos.interfaces.creacion.Pasarela;
 import org.samuel.gestor_eventos.interfaces.estructura.CompraInterface;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
-public class Compra implements Pasarela, CompraInterface {
+public class Compra implements Pasarela, CompraInterface, Iguales {
     private int id;
     private Usuario usuarioAsociado;
     private Evento eventoAsociado;
@@ -47,6 +47,8 @@ public class Compra implements Pasarela, CompraInterface {
         return eventoAsociado;
     }
 
+
+
     public double getValor() {
         return valor;
     }
@@ -57,25 +59,6 @@ public class Compra implements Pasarela, CompraInterface {
 
     public EstadoCompras getEstado() {
         return estado;
-    }
-
-    @Override
-    public double definirValorTotal() {
-        return 0;
-    }
-
-    @Override
-    public String definirServicios() {
-        return "";
-    }
-
-    public ArrayList<String> getServiciosAdicionales() {
-        return serviciosAdicionales;
-    }
-
-    @Override
-    public boolean annadirServiciosAdicionales(ArrayList<String> servicios) {
-        return false;
     }
 
     public void setId(int id) {
@@ -106,10 +89,6 @@ public class Compra implements Pasarela, CompraInterface {
         this.estado = estado;
     }
 
-    public void setServiciosAdicionales(ArrayList<String> serviciosAdicionales) {
-        this.serviciosAdicionales = serviciosAdicionales;
-    }
-
     public ArrayList<Entrada> getEntradas() {
         return entradas;
     }
@@ -118,23 +97,94 @@ public class Compra implements Pasarela, CompraInterface {
         this.entradas = entradas;
     }
 
+    public ArrayList<String> getServiciosAdicionales() {
+        return serviciosAdicionales;
+    }
+
+    public void setServiciosAdicionales(ArrayList<String> serviciosAdicionales) {
+        this.serviciosAdicionales = serviciosAdicionales;
+    }
+
+    /*Metodo interface CompraInterface*/
+    /*Metodo interface CompraInterface*/
+    /*Metodo interface CompraInterface*/
+
+    @Override
+    public double definirValorTotal() {
+        double total = 0;
+
+        if (entradas != null) {
+            for (Entrada e : entradas) {
+                total += e.getPrecioFinal();
+            }
+        }
+        this.valor = total;
+        return total;
+    }
+
+    @Override
+    public ArrayList<String> definirServiciosAdiccionales() {
+        return serviciosAdicionales;
+    }
+
+    /*Metodos interface pasarela*/
+    /*Metodos interface pasarela*/
+    /*Metodos interface pasarela*/
+
     @Override
     public boolean actualizar(Pasarela pasarela) {
+
+        if (pasarela instanceof Compra) {
+
+            Compra c = (Compra) pasarela;
+
+            if (this.id == c.id) {
+                this.usuarioAsociado = c.usuarioAsociado;
+                this.eventoAsociado = c.eventoAsociado;
+                this.fechaCompra = c.fechaCompra;
+                this.valor = c.valor;
+                this.estado = c.estado;
+                this.entradas = c.entradas;
+                this.conjuntoItems = c.conjuntoItems;
+                this.serviciosAdicionales = c.serviciosAdicionales;
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean eliminar(int id) {
-        return false;
+        return this.id == id;
     }
 
     @Override
     public Pasarela buscar(int id) {
+
+        if (this.id == id) {
+            return this;
+        }
         return null;
     }
 
     @Override
     public boolean guardar(Pasarela pasarela) {
+
+        if (pasarela instanceof Entrada) {
+            if (entradas == null) {
+                entradas = new ArrayList<>();
+            }
+            return entradas.add((Entrada) pasarela);
+        }
         return false;
     }
+
+    /*Metodos de la interface iguales*/
+
+    @Override
+    public Iguales getIguales() {
+        return this;
+    }
+
 }
+

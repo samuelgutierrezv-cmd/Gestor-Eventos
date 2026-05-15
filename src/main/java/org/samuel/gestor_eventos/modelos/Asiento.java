@@ -48,20 +48,24 @@ public class Asiento implements EventoComponente {
         this.estado = estado;
     }
 
+    // Funciones basicas
+
     @Override
     public boolean actualizar(EventoComponente componente) {
         if (componente instanceof Asiento) {
             Asiento a = (Asiento) componente;
-            this.numero = a.numero;
-            this.fila = a.fila;
-            this.estado = a.estado;
-            return true;
+            if (this.id == a.id) {
+                this.numero = a.numero;
+                this.fila = a.fila;
+                this.estado = a.estado;
+                return true;
+            }
         }
         return false;
     }
 
     @Override
-    public boolean elminarEvento(int id) {
+    public boolean eliminarEvento(int id) {
         return this.id == id;
     }
 
@@ -71,11 +75,10 @@ public class Asiento implements EventoComponente {
     }
 
     @Override
-    public boolean guadarComponente(EventoComponente componente) {
+    public boolean guardarComponente(EventoComponente componente) {
         return false;
     }
 
-    // Funciones basicas
 
     public void cambiarEstado(EstadoAsiento nuevoEstado) {
         if (nuevoEstado == null) {

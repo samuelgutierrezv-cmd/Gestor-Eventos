@@ -60,16 +60,31 @@ public class Entrada implements Pasarela {
 
     @Override
     public boolean actualizar(Pasarela pasarela) {
+        if (pasarela instanceof Entrada) {
+
+            Entrada e = (Entrada) pasarela;
+
+            if (this.id == e.id) {
+                this.zona = e.zona;
+                this.asiento = e.asiento;
+                this.precioFinal = e.precioFinal;
+                this.estado = e.estado;
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
     public boolean eliminar(int id) {
-        return false;
+        return this.id == id;
     }
 
     @Override
     public Pasarela buscar(int id) {
+        if (this.id == id) {
+            return this;
+        }
         return null;
     }
 

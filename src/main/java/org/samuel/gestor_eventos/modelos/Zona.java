@@ -20,24 +20,42 @@ public class Zona implements EventoComponente {
         this.capacidad = builder.capacidad;
         this.precioBase = builder.precioBase;
         this.sector = builder.sector;
+        this.configuracionAsientos = builder.configuracionAsientos;
     }
 
     @Override
     public boolean actualizar(EventoComponente componente) {
+
+        // actualizar zona
         if (componente instanceof Zona) {
             Zona z = (Zona) componente;
-            this.nombre = z.nombre;
-            this.capacidad = z.capacidad;
-            this.precioBase = z.precioBase;
-            return true;
+
+            if (this.id == z.id) {
+                this.nombre = z.nombre;
+                this.capacidad = z.capacidad;
+                this.precioBase = z.precioBase;
+                this.sector = z.sector;
+                return true;
+            }
+        }
+
+        // delegar a asientos
+        if (configuracionAsientos != null) {
+            for (Asiento a : configuracionAsientos) {
+                if (a.actualizar(componente)) {
+                    return true;
+                }
+            }
         }
         return false;
     }
 
     @Override
-    public boolean elminarEvento(int id) {
+    public boolean eliminarEvento(int id) {
         if (configuracionAsientos != null) {
-            return configuracionAsientos.removeIf(a -> a.getId() == id);
+            return configuracionAsientos.removeIf(
+                    asiento -> asiento.getId() == id
+            );
         }
         return false;
     }
@@ -49,14 +67,16 @@ public class Zona implements EventoComponente {
         if (configuracionAsientos != null) {
             for (Asiento a : configuracionAsientos) {
                 EventoComponente encontrado = a.buscar(id);
-                if (encontrado != null) return encontrado;
+                if (encontrado != null) {
+                    return encontrado;
+                }
             }
         }
         return null;
     }
 
     @Override
-    public boolean guadarComponente(EventoComponente componente) {
+    public boolean guardarComponente(EventoComponente componente) {
         if (componente instanceof Asiento) {
             if (configuracionAsientos == null) {
                 configuracionAsientos = new ArrayList<>();
@@ -172,6 +192,6 @@ public class Zona implements EventoComponente {
             }
         }
 
-        return (double) ocupados / capacidad;
+        return ((double) ocupados / capacidad) * 100;
     }
 }

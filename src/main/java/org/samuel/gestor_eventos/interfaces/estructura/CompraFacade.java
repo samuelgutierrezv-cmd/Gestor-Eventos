@@ -1,29 +1,30 @@
 package org.samuel.gestor_eventos.interfaces.estructura;
 
+import com.almasb.fxgl.core.collection.Array;
+import org.samuel.gestor_eventos.interfaces.comportamiento.Iguales;
+import org.samuel.gestor_eventos.interfaces.comportamiento.Strategy;
+import org.samuel.gestor_eventos.modelos.Compra;
+import org.samuel.gestor_eventos.modelos.Evento;
+
+import java.util.ArrayList;
+
 public class CompraFacade {
+
     private PagoService pagoService;
     private EntradaService entradaService;
     private FacturaService facturaService;
     private CompraService compraService;
 
-    public CompraFacade(){
+    public CompraFacade(Strategy estructura) {
         this.compraService = new CompraService();
         this.entradaService = new EntradaService();
-        this.facturaService =  new FacturaService();
-        this.pagoService = new PagoService();
+        this.facturaService = new FacturaService();
+        this.pagoService = new PagoService( estructura);
     }
 
-    public void realizarPasarelaPedido(){
-        /* Ejemplo para cuando lo vallamos a hacer que esta es una de las partes mas importantes
-            como se usa es como la parte del proceso y las clases compra y de mas solo sirven para algunos metodos
-            y fuardar informacion de resto lo demas se hace aqui.
-        * */
-
-        /*Cuando se haga bien hacemos un diagrama para saber que tenemos que verifcar hacer y en el orden
-        * */
-        compraService.realizarCompra();
-        entradaService.realizandoEntrada();
-        pagoService.pasarelaDePago();
-        facturaService.realizarFactura();
+    public Iguales realizarCompraCompleta(Compra compra, Evento evento) {
+        
+        ArrayList<Iguales> iguales =  new ArrayList<>();
+        return (Iguales) iguales;
     }
 }

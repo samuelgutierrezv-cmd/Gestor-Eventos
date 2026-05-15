@@ -2,13 +2,16 @@ package org.samuel.gestor_eventos.modelos;
 
 import org.samuel.gestor_eventos.enums.CategoriaEvento;
 import org.samuel.gestor_eventos.enums.EstadoEvento;
+import org.samuel.gestor_eventos.interfaces.comportamiento.Observer;
+import org.samuel.gestor_eventos.interfaces.comportamiento.Subject;
 import org.samuel.gestor_eventos.interfaces.creacion.EventoComponente;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 //implementando la interface cloneable
-public class Evento implements EventoComponente, Cloneable {
+public class Evento implements EventoComponente, Cloneable, Subject {
 
     private CategoriaEvento categoria;
     private int id;
@@ -21,6 +24,7 @@ public class Evento implements EventoComponente, Cloneable {
     private String politica;
     private Recinto recinto;
     private EstadoEvento estado;
+    private ArrayList<Observer> observers = new ArrayList<>();
 
     public Evento(CategoriaEvento categoria, int id, String nombre, String actividadProgramada, String descripcion, String ciudad, LocalDate fecha, String hora,String politica, Recinto recinto, EstadoEvento estado) {
         this.categoria = categoria;
@@ -138,11 +142,33 @@ public class Evento implements EventoComponente, Cloneable {
 
     @Override
     public boolean actualizar(EventoComponente componente) {
+
+        if (componente instanceof Evento) {
+            Evento e = (Evento) componente;
+
+            if (this.id == e.id) {
+                this.nombre = e.nombre;
+                this.descripcion = e.descripcion;
+                this.categoria = e.categoria;
+                this.ciudad = e.ciudad;
+                this.fecha = e.fecha;
+                this.hora = e.hora;
+                this.estado = e.estado;
+                this.actividadProgramada = e.actividadProgramada;
+                this.politica = e.politica;
+                return true;
+            }
+        }
+
+        if (recinto != null) {
+            return recinto.actualizar(componente);
+        }
+
         return false;
     }
 
     @Override
-    public boolean elminarEvento(int id) {
+    public boolean eliminarEvento(int id) {
         if (recinto != null && recinto.getId() == id) {
             recinto = null;
             return true;
@@ -162,12 +188,32 @@ public class Evento implements EventoComponente, Cloneable {
     }
 
     @Override
-    public boolean guadarComponente(EventoComponente componente) {
+    public boolean guardarComponente(EventoComponente componente) {
         if (componente instanceof Recinto) {
             this.recinto = (Recinto) componente;
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void agregarObserver(Observer observer) {
+
+        observers.add(observer);
+    }
+
+    @Override
+    public void eliminarObserver(Observer observer) {
+
+        observers.remove(observer);
+    }
+
+    @Override
+    public void notificarObservers(String mensaje) {
+
+        for (Observer o : observers) {
+            o.actualizar(mensaje);
+        }
     }
 
     // Funciones basicas
@@ -176,7 +222,10 @@ public class Evento implements EventoComponente, Cloneable {
         if (estado == EstadoEvento.PUBLICADO) {
             throw new IllegalStateException("El evento ya fue publicado");
         }
+
         this.estado = EstadoEvento.PUBLICADO;
+
+        notificarObservers("El evento " + nombre + " fue publicado");
     }
 
     public void cancelar() {
@@ -184,9 +233,29 @@ public class Evento implements EventoComponente, Cloneable {
             throw new IllegalStateException("El evento ya fue cancelado");
         }
         this.estado = EstadoEvento.CANCELADO;
+
+        notificarObservers("El evento " + nombre + " fue cancelado");
     }
 
     public boolean hayDisponibilidad() {
-        return recinto != null && !recinto.getConjuntoZonas().isEmpty();
+
+        if (recinto == null || recinto.getConjuntoZonas() == null) {
+            return false;
+        }
+
+        for (Zona z : recinto.getConjuntoZonas()) {
+
+            if (z.getConfiguracionAsientos() != null) {
+
+                for (Asiento a : z.getConfiguracionAsientos()) {
+
+                    if (a.estaDisponible()) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 }
