@@ -8,7 +8,7 @@ import org.samuel.gestor_eventos.interfaces.estructura.CompraInterface;
 import java.sql.Date;
 import java.util.ArrayList;
 
-public class Compra implements Pasarela, CompraInterface, Iguales {
+public class Compra implements Pasarela, CompraInterface {
     private int id;
     private Usuario usuarioAsociado;
     private Evento eventoAsociado;
@@ -105,10 +105,6 @@ public class Compra implements Pasarela, CompraInterface, Iguales {
         this.serviciosAdicionales = serviciosAdicionales;
     }
 
-    /*Metodo interface CompraInterface*/
-    /*Metodo interface CompraInterface*/
-    /*Metodo interface CompraInterface*/
-
     @Override
     public double definirValorTotal() {
         double total = 0;
@@ -126,10 +122,6 @@ public class Compra implements Pasarela, CompraInterface, Iguales {
     public ArrayList<String> definirServiciosAdiccionales() {
         return serviciosAdicionales;
     }
-
-    /*Metodos interface pasarela*/
-    /*Metodos interface pasarela*/
-    /*Metodos interface pasarela*/
 
     @Override
     public boolean actualizar(Pasarela pasarela) {
@@ -178,13 +170,4 @@ public class Compra implements Pasarela, CompraInterface, Iguales {
         }
         return false;
     }
-
-    /*Metodos de la interface iguales*/
-
-    @Override
-    public Iguales getIguales() {
-        return this;
-    }
-
 }
-

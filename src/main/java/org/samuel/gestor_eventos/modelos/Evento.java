@@ -122,6 +122,7 @@ public class Evento implements EventoComponente, Cloneable, Subject {
 
     public void setFecha(LocalDate fecha) {
         this.fecha = fecha;
+        notificarObservers("La fecha del evento " + nombre + " fue actualizada a " + fecha);
     }
 
     public void setHora(String hora) {
@@ -138,6 +139,7 @@ public class Evento implements EventoComponente, Cloneable, Subject {
 
     public void setEstado(EstadoEvento estado) {
         this.estado = estado;
+        notificarObservers("El estado del evento " + nombre + " cambió a " + estado);
     }
 
     @Override
@@ -238,24 +240,19 @@ public class Evento implements EventoComponente, Cloneable, Subject {
     }
 
     public boolean hayDisponibilidad() {
-
         if (recinto == null || recinto.getConjuntoZonas() == null) {
             return false;
         }
 
         for (Zona z : recinto.getConjuntoZonas()) {
-
             if (z.getConfiguracionAsientos() != null) {
-
                 for (Asiento a : z.getConfiguracionAsientos()) {
-
                     if (a.estaDisponible()) {
                         return true;
                     }
                 }
             }
         }
-
         return false;
     }
 }

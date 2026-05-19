@@ -194,4 +194,16 @@ public class Zona implements EventoComponente {
 
         return ((double) ocupados / capacidad) * 100;
     }
+
+    @Override
+    public String toString() {
+
+        return nombre
+                + " | "
+                + sector
+                + " | Capacidad: "
+                + capacidad
+                + " | Precio: "
+                + precioBase;
+    }
 }

@@ -8,7 +8,7 @@ public class Usuario extends Persona implements Observer {
     private String password;
     private ArrayList<String> metodosDepagos;
 
-    public Usuario(String nombre, int di, String corroElectronico, int numeroTelefono, ArrayList<String> metodosDepagos, String password) {
+    public Usuario(String nombre, int di, String corroElectronico, String numeroTelefono, ArrayList<String> metodosDepagos, String password) {
         super(nombre, di, corroElectronico, numeroTelefono);
         this.metodosDepagos = metodosDepagos;
         this.password = password;

@@ -17,30 +17,33 @@ import org.samuel.gestor_eventos.enums.CategoriaEvento;
 import org.samuel.gestor_eventos.enums.EstadoEvento;
 import org.samuel.gestor_eventos.modelos.Evento;
 import org.samuel.gestor_eventos.modelos.Recinto;
-
+import javafx.scene.input.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.scene.control.Alert;
 
 public class EventosControler implements Initializable {
 
-    @FXML private ListView<Evento>      eventosListView;
-    @FXML private Label                 contadorLabel;
-    @FXML private TextField             filtroCiudad;
-    @FXML private ComboBox<String>      filtroCategoria;
-    @FXML private ComboBox<String>      filtroEstado;
+    @FXML private ListView<Evento> eventosListView;
+    @FXML private Label contadorLabel;
+    @FXML private TextField filtroCiudad;
+    @FXML private ComboBox<String> filtroCategoria;
+    @FXML private ComboBox<String> filtroEstado;
     private ObservableList<Evento> todosLosEventos;
     private FilteredList<Evento>   eventosFiltrados;
     private ArrayList<Evento> eventos= new ArrayList<>();
+    private Evento eventoSeleccionado;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        RepositorioAdmin repo = RepositorioAdmin.getInstance();
 
         // ── 1. Cargar datos (reemplaza con tu DAO o servicio) ─────────
-        todosLosEventos = FXCollections.observableArrayList(cargarEventosDePrueba());
+        todosLosEventos = FXCollections.observableArrayList(repo.getEventos());
 
         // ── 2. FilteredList para búsqueda en tiempo real ──────────────
         eventosFiltrados = new FilteredList<>(todosLosEventos, e -> true);
@@ -48,6 +51,17 @@ public class EventosControler implements Initializable {
         // ── 3. Celda personalizada ────────────────────────────────────
         eventosListView.setCellFactory(lv -> new EventoCell());
         eventosListView.setItems(eventosFiltrados);
+        eventosListView.getSelectionModel()
+                .selectedItemProperty()
+                .addListener((obs, anterior, nuevo) -> {
+                    eventoSeleccionado = nuevo;
+                });
+        eventosListView.setOnMouseClicked(event -> {
+
+            if(event.getClickCount() == 2){
+                abrirDetalleEvento(event);
+            }
+        });
 
         // ── 4. Llenar ComboBoxes de filtro ────────────────────────────
         filtroCategoria.getItems().add("Todas");
@@ -91,21 +105,33 @@ public class EventosControler implements Initializable {
 
     // ── Acciones de botones ───────────────────────────────────────────
     @FXML
-    private void irCompras(ActionEvent event) throws IOException {
+    private void irCompras(ActionEvent event) {
+
         try {
-            // Guardamos la escena actual ANTES de cambiar
+
+            if (eventoSeleccionado == null) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Evento");
+                alert.setHeaderText(null);
+                alert.setContentText("Seleccione un evento");
+                alert.showAndWait();
+                return;
+            }
+
             Scene escenaAnterior = ((Node) event.getSource()).getScene();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/samuel/gestor_eventos/administrador.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/org/samuel/gestor_eventos/pago.fxml"
+                    )
+            );
+
             Parent root = loader.load();
 
-            // Obtenemos el controlador de la nueva pantalla
-            AdminControler pagoController = loader.getController();
+            PagoControler controller = loader.getController();
+            controller.setEscenaAnterior(escenaAnterior);
+            controller.setEventoSeleccionado(eventoSeleccionado);
 
-            // Pasamos la escena anterior al controlador de Pago
-            pagoController.setEscenaAnterior(escenaAnterior);
-
-            // Cambiamos la escena
             Stage ventana = (Stage) ((Node) event.getSource()).getScene().getWindow();
             ventana.setScene(new Scene(root));
             ventana.show();
@@ -116,14 +142,26 @@ public class EventosControler implements Initializable {
     }
 
     @FXML
-    private void cerrarSesion() {
-        // TODO: volver a login
-        System.out.println("Cerrar sesión");
+    private void cerrarSesion(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/org/samuel/gestor_eventos/login.fxml")
+            );
+
+            Parent root = loader.load();
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     // ── Datos de ejemplo ─────────────────────────────────────────────
     // Reemplaza este método por una llamada a tu EventoDAO
-    private List<Evento> cargarEventosDePrueba() {
+    /*private List<Evento> cargarEventosDePrueba() {
 
         ArrayList<Zona> conjunto = new ArrayList<>();
         Zona z1 = new Zona.ZonaBuilder(10000, 1, Sector.GENERAL, "Andes", 100).builder();
@@ -189,12 +227,12 @@ public class EventosControler implements Initializable {
                         r3, EstadoEvento.FINALIZADO
                 )
         );
-    }
+    }*/
+
     // ==================== VARIABLE DE NAVEGACIÓN ====================
     private Scene escenaAnterior;
 
-    @FXML
-    private Button btnVolver;
+    @FXML private Button btnVolver;
 
     // ==================== MÉTODO PARA RECIBIR ESCENA ANTERIOR ====================
     public void setEscenaAnterior(Scene escena) {
@@ -204,9 +242,30 @@ public class EventosControler implements Initializable {
     // ==================== MÉTODO VOLVER ====================
     @FXML
     private void volver() {
-        if (escenaAnterior != null) {
-            Stage stage = (Stage) btnVolver.getScene().getWindow();
-            stage.setScene(escenaAnterior);
+        Stage stage = (Stage) btnVolver.getScene().getWindow();
+        Navegacion.cambiarVentana(stage, "/org/samuel/gestor_eventos/inicio.fxml");
+    }
+
+    private void abrirDetalleEvento(MouseEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/org/samuel/gestor_eventos/detalle-evento.fxml"
+                    )
+            );
+
+            Parent root = loader.load();
+
+            DetalleEventoController controller = loader.getController();
+
+            controller.setEventoSeleccionado(eventoSeleccionado);
+            controller.setEscenaAnterior(((Node) event.getSource()).getScene());
+
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

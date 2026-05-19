@@ -1,5 +1,6 @@
 package org.samuel.gestor_eventos.interfaces.estructura;
 
+import org.samuel.gestor_eventos.enums.EstadoCompras;
 import org.samuel.gestor_eventos.interfaces.comportamiento.Strategy;
 import org.samuel.gestor_eventos.modelos.Compra;
 
@@ -16,6 +17,9 @@ public class PagoService {
     }
 
     public void procesarPago(Compra compra){
-        metodosDePago.pago(compra.getValor());
+        boolean exito = metodosDePago.pago(compra.getValor());
+        if(exito){
+            compra.setEstado(EstadoCompras.PAGADA);
+        }
     }
 }

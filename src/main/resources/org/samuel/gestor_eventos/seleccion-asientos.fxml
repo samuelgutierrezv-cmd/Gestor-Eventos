@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane
+        fitToWidth="true"
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="org.samuel.gestor_eventos.controler.SeleccionAsientosController">
+
+    <content>
+
+        <VBox spacing="20"
+              style="-fx-padding: 25;">
+
+            <HBox spacing="15">
+
+                <Button text="Volver"
+                        onAction="#volver"/>
+
+                <Label text="Selección de Asientos"
+                       style="-fx-font-size: 32px; -fx-font-weight: bold;"/>
+
+            </HBox>
+
+            <VBox spacing="5">
+
+                <Label fx:id="lblEvento"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+                <Label fx:id="lblDetalle"/>
+
+                <Label fx:id="lblRecinto"/>
+
+            </VBox>
+
+            <Separator/>
+
+            <Label text="Selecciona una zona:"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+            <ListView fx:id="listZonas"
+                      prefHeight="120"/>
+
+            <Separator/>
+
+            <Label text="Selecciona un asiento:"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold;"/>
+
+            <FlowPane fx:id="panelAsientos"
+                      hgap="12"
+                      vgap="12"
+                      prefWrapLength="700"/>
+
+            <HBox alignment="CENTER">
+
+                <Button text="Continuar al pago"
+                        style="
+                            -fx-background-color: #2563eb;
+                            -fx-text-fill: white;
+                            -fx-font-size: 16px;
+                            -fx-padding: 12 30 12 30;
+                        "
+                        onAction="#continuarPago"/>
+
+            </HBox>
+
+        </VBox>
+
+    </content>
+
+</ScrollPane>

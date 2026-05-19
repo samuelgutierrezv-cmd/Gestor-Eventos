@@ -13,5 +13,5 @@ public interface CreacionCompras {
     public Pasarela creacionCompra(int id, Usuario usuarioAsociado, float valor, Evento eventoAsociado, Date fechaCompra, EstadoCompras estado, ArrayList<String> conjuntoItems, ArrayList<String> serviciosAdicionales, ArrayList<Entrada> entradas);
     public Pasarela creandoEntrada(int id, Zona zona, Asiento asiento, double precioFinal, EstadoEntrada estado);
     public Pasarela creandoIncidencia(String descripcion, int id, TipoIncidencia tipo, Date fechaCreacion, Entidades entidadAfectada);
-    public Pasarela creandoFactura(Compra compra, Pago pago);
+    public Pasarela creandoFactura(int idFactura, Compra compra, Pago pago);
 }

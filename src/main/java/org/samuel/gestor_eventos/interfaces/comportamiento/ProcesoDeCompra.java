@@ -11,5 +11,8 @@ public abstract class ProcesoDeCompra {
         this.siguiente = siguiente;
     }
 
-    public abstract Iguales procesar(Compra Compra, Evento evento);
+    public abstract Compra procesar(
+            Compra compra,
+            Evento evento
+    );
 }

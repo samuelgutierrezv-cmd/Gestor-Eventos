@@ -4,7 +4,6 @@ package org.samuel.gestor_eventos.controler;
 import javafx.geometry.Pos;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
@@ -116,7 +115,7 @@ public class EventoCell extends ListCell<Evento> {
         lblNombre.setText("#" + e.getId() + "  " + e.getNombre());
         lblDescripcion.setText(e.getDescripcion());
         lblCiudad.setText("📍 " + e.getCiudad());
-        lblFecha.setText("? " + (e.getFecha() != null ? e.getFecha().format(DTF) : "?"));
+        lblFecha.setText("📅 " + (e.getFecha() != null ? e.getFecha().format(DTF) : "?"));
         lblHora.setText("🕐 " + e.getHora());
         lblRecinto.setText("🏟 " + (e.getRecinto() != null ? e.getRecinto().getNombre() : "Sin recinto"));
         lblActividad.setText(

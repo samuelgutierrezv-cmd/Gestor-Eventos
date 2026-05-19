@@ -8,12 +8,12 @@ import java.util.ArrayList;
 
 public class FactoryUsuarios implements CreacionUsuarios{
     @Override
-    public Persona creandoUsuario(int numeroTelefono,int id,String correoElectronico,String nombre,ArrayList<String> metodosDePago, String password) {
+    public Persona creandoUsuario(String numeroTelefono,int id,String correoElectronico,String nombre,ArrayList<String> metodosDePago, String password) {
         return new Usuario(nombre, id, correoElectronico,numeroTelefono, metodosDePago,password);
     }
 
     @Override
-    public Persona creandoAdministrador(int numeroTelefono,int id ,String correoElectronico,String nombre,FactoryCompras factoryCompras, FactoryEventos factoryEventos, FactoryUsuarios factoryUsuarios) {
-        return new Administrador(nombre, id, correoElectronico, numeroTelefono,factoryCompras, factoryEventos, factoryUsuarios);
+    public Persona creandoAdministrador(String numeroTelefono,int id ,String correoElectronico,String nombre,FactoryCompras factoryCompras, FactoryEventos factoryEventos, FactoryUsuarios factoryUsuarios) {
+        return Administrador.getInstance(numeroTelefono, id, correoElectronico, nombre, factoryCompras, factoryEventos, factoryUsuarios);
     }
 }

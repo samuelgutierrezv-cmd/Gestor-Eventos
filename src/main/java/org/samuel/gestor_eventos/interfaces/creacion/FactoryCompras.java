@@ -26,7 +26,7 @@ public class FactoryCompras implements CreacionCompras{
     }
 
     @Override
-    public Pasarela creandoFactura(Compra compra, Pago pago) {
-        return Facturas.getInstance(compra,pago);
+    public Pasarela creandoFactura(int idFactura, Compra compra, Pago pago) {
+        return new Facturas(idFactura, compra, pago);
     }
 }
