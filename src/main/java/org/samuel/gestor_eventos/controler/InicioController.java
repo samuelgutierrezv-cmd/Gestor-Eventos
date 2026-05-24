@@ -43,15 +43,6 @@ public class InicioController {
         usuario.limpiarNotificaciones();
     }
 
-    @FXML
-    private void abrirFacturas(ActionEvent event) {
-        cambiarVentana(event, "/org/samuel/gestor_eventos/factura.fxml");
-    }
-
-    @FXML
-    private void abrirPerfil(ActionEvent event) {
-        cambiarVentana(event, "/org/samuel/gestor_eventos/perfil.fxml");
-    }
 
     @FXML
     private void cerrarSesion(ActionEvent event) {
