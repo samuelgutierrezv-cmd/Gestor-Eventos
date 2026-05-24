@@ -5,19 +5,24 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.ScrollPane?>
 
-<ScrollPane fitToWidth="true" fitToHeight="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.samuel.gestor_eventos.controler.FormularioControler">
+<ScrollPane fitToWidth="true" fitToHeight="true"
+            styleClass="pane-principal"
+            stylesheets="@admin.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.samuel.gestor_eventos.controler.FormularioControler">
     <content>
         <VBox spacing="12"
               alignment="CENTER"
               prefHeight="700.0"
-              prefWidth="700.0">
+              prefWidth="700.0"
+              styleClass="body-bg">
             <padding>
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
-            <Label fx:id="lblTitulo" text="Formulario" style="-fx-font-size:18px; -fx-text-fill:#ffffff;"/>
+            <Label fx:id="lblTitulo" text="Formulario" styleClass="header-title"/>
             <VBox fx:id="contenedorCampos" spacing="10"/>
-            <Button text="Guardar" onAction="#guardar"
-                    style="-fx-background-color:#3b82f6; -fx-text-fill:white;"/>
+            <Button text="Guardar" onAction="#guardar" styleClass="btn-accion"/>
         </VBox>
     </content>
 </ScrollPane>

@@ -18,6 +18,11 @@ public class InicioController {
     }
 
     @FXML
+    private void abrirPerfil(ActionEvent event) {
+        cambiarVentana(event, "/org/samuel/gestor_eventos/perfil.fxml");
+    }
+
+    @FXML
     private void abrirCompras(ActionEvent event) {
         mostrarNotificaciones();
         cambiarVentana(event, "/org/samuel/gestor_eventos/mis-compras.fxml");

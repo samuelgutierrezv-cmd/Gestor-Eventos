@@ -2,6 +2,7 @@ package org.samuel.gestor_eventos.controler;
 
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -22,13 +23,9 @@ public class RegistroAdminisitradores {
     @FXML private PasswordField passwordField;
     @FXML private TextField telefonoField;
 
-    // ==================== MÉTODO PARA RECIBIR ESCENA ANTERIOR ====================
-
     public void setEscenaAnterior(Scene escena) {
         this.escenaAnterior = escena;
     }
-
-    // ==================== MÉTODO VOLVER ====================
 
     @FXML
     private void volver() {
@@ -36,43 +33,68 @@ public class RegistroAdminisitradores {
         Navegacion.cambiarVentana(stage, "/org/samuel/gestor_eventos/login-Administrador.fxml");
     }
 
-    // ==================== REGISTRO ====================
-
     @FXML
     public void registrar() {
-        try {
-            String nombre = nombreField.getText();
-            String correo = emailField.getText();
-            String telefono = telefonoField.getText();
-            String password = passwordField.getText();
-            int id =
-                    RepositorioAdmin.getInstance()
-                            .getAdministradores()
-                            .size() + 1;
+        String nombre   = nombreField.getText().trim();
+        String correo   = emailField.getText().trim();
+        String telefono = telefonoField.getText().trim();
+        String password = passwordField.getText();
 
-            Administrador admin =
-                    new Administrador(
-                            nombre,
-                            id,
-                            correo,
-                            telefono,
-                            password,
-                            new FactoryCompras(),
-                            new FactoryEventos(),
-                            new FactoryUsuarios()
-                    );
-
-            RepositorioAdmin.getInstance().getAdministradores().add(admin);
-
-            System.out.println("Administrador registrado correctamente");
-            System.out.println(
-                "Admins registrados: "
-                        + RepositorioAdmin.getInstance()
-                        .getAdministradores()
-                        .size()
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (nombre.isEmpty() || correo.isEmpty() || telefono.isEmpty() || password.isEmpty()) {
+            mostrarAlerta("Todos los campos son obligatorios.");
+            return;
         }
+
+        if (!correo.matches("^[\\w._%+\\-]+@[\\w.\\-]+\\.[a-zA-Z]{2,}$")) {
+            mostrarAlerta("El correo electrónico no tiene un formato válido.");
+            return;
+        }
+
+        if (password.length() < 6) {
+            mostrarAlerta("La contraseña debe tener al menos 6 caracteres.");
+            return;
+        }
+
+        if (!telefono.matches("\\d{10}")) {
+            mostrarAlerta("El teléfono debe contener exactamente 10 dígitos numéricos.");
+            return;
+        }
+
+        boolean correoExiste = RepositorioAdmin.getInstance().getAdministradores()
+                .stream()
+                .anyMatch(a -> a.getCorroElectronico().equalsIgnoreCase(correo));
+
+        if (correoExiste) {
+            mostrarAlerta("Ya existe un administrador registrado con ese correo.");
+            return;
+        }
+
+        int id = RepositorioAdmin.getInstance().getAdministradores().size() + 1;
+
+        Administrador admin = new Administrador(
+                nombre, id, correo, telefono, password,
+                new FactoryCompras(),
+                new FactoryEventos(),
+                new FactoryUsuarios()
+        );
+
+        RepositorioAdmin.getInstance().getAdministradores().add(admin);
+
+        Alert ok = new Alert(Alert.AlertType.INFORMATION);
+        ok.setTitle("Registro exitoso");
+        ok.setHeaderText(null);
+        ok.setContentText("Administrador " + nombre + " registrado correctamente.");
+        ok.showAndWait();
+
+        Stage stage = (Stage) btnVolver.getScene().getWindow();
+        Navegacion.cambiarVentana(stage, "/org/samuel/gestor_eventos/login-Administrador.fxml");
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Error de registro");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 }

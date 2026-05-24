@@ -10,6 +10,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.samuel.gestor_eventos.modelos.Usuario;
+import javafx.scene.control.Alert;
 
 public class LoginControler {
 
@@ -21,17 +22,15 @@ public class LoginControler {
 
     @FXML
     private void login(ActionEvent event) {
-
-        String correo = emailField.getText();
+        String correo   = emailField.getText().trim();
         String password = passwordField.getText();
 
         if (correo.isEmpty() || password.isEmpty()) {
-            System.out.println("Complete todos los campos");
+            mostrarAlerta("Por favor completa todos los campos.");
             return;
         }
 
         Usuario usuarioEncontrado = null;
-
         for (Usuario u : RepositorioAdmin.getInstance().getUsuarios()) {
             if (u.getCorroElectronico().equals(correo) && u.getPassword().equals(password)) {
                 usuarioEncontrado = u;
@@ -40,15 +39,20 @@ public class LoginControler {
         }
 
         if (usuarioEncontrado == null) {
-            System.out.println("Usuario no encontrado");
+            mostrarAlerta("Correo o contraseña incorrectos.");
             return;
         }
 
         Sesion.setUsuarioActual(usuarioEncontrado);
-
-        System.out.println("Bienvenido " + usuarioEncontrado.getNombre());
-
         abrirVentana(event, "/org/samuel/gestor_eventos/inicio.fxml");
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error de inicio de sesión");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
     @FXML
