@@ -7,7 +7,7 @@
 
 .pane-principal{
     fx-background-color: #0C0C1A;
-    -fx-border-radius: 10rem;
+    -fx-border-radius: 10;
     -fx-alignment:center;
 }
 

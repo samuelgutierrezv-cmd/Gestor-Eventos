@@ -11,6 +11,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import org.samuel.gestor_eventos.modelos.Administrador;
+import javafx.scene.control.Alert;
+
 
 public class LoginAdministrador {
 
@@ -41,17 +43,29 @@ public class LoginAdministrador {
 
     @FXML
     private void login(ActionEvent event) {
-        String correo = emailField.getText();
+        String correo = emailField.getText().trim();
         String password = passwordField.getText();
+
+        if (correo.isEmpty() || password.isEmpty()) {
+            mostrarAlerta("Por favor completa todos los campos.");
+            return;
+        }
 
         for (Administrador admin : RepositorioAdmin.getInstance().getAdministradores()) {
             if (admin.getCorroElectronico().equals(correo) && admin.getPassword().equals(password)) {
-                System.out.println("Bienvenido administrador " + admin.getNombre());
                 abrirPanelAdmin(event);
                 return;
             }
         }
-        System.out.println("Administrador no encontrado");
+        mostrarAlerta("Correo o contraseña incorrectos.");
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
     // ==================== IR A REGISTRO ====================
