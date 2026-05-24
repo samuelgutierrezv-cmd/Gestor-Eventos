@@ -35,6 +35,7 @@ public class RegistroAdminisitradores {
 
     @FXML
     public void registrar() {
+        System.out.println("Entró al método registrar admin");
         String nombre   = nombreField.getText().trim();
         String correo   = emailField.getText().trim();
         String telefono = telefonoField.getText().trim();

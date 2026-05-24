@@ -23,7 +23,8 @@
         <Button
                 fx:id="btnIngresar"
                 text="Ingresar"
-                onAction="#login"/>
+                onAction="#login"
+                styleClass="button-primary"/>
 
         <Button text="Crear cuenta" styleClass="button-secondary" onAction="#irRegistro"/>
 

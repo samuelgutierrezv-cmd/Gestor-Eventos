@@ -71,10 +71,9 @@ public class LoginControler {
 
     @FXML
     private void loginAdministrador(ActionEvent event) {
-
         abrirVentana(
                 event,
-                "/org/samuel/gestor_eventos/registro-administradores.fxml"
+                "/org/samuel/gestor_eventos/login-Administrador.fxml"  // ← CORRECTO
         );
     }
 

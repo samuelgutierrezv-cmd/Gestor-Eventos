@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.*?>
 
 <?import javafx.collections.FXCollections?>
-<VBox alignment="CENTER" spacing="15" stylesheets="@registro.css" xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
+<VBox alignment="CENTER" spacing="15" stylesheets="@registro.css" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="org.samuel.gestor_eventos.controler.RegistroAdminisitradores"
       prefHeight="600.0" prefWidth="450.0">
 
     <VBox styleClass="card" spacing="10" maxWidth="350">
 
-        <Label text="Registro Admi" styleClass="label-title"/>
+        <Label text="Registro Admin" styleClass="label-title"/>
 
         <TextField fx:id="nombreField" promptText="Nombre completo"/>
 
