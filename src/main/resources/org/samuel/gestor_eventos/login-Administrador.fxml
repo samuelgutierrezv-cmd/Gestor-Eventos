@@ -20,7 +20,10 @@
 
         <PasswordField fx:id="passwordField" promptText="Contraseña"/>
 
-        <Button text="Ingresar" styleClass="button-primary" onAction="#login"/>
+        <Button
+                fx:id="btnIngresar"
+                text="Ingresar"
+                onAction="#login"/>
 
         <Button text="Crear cuenta" styleClass="button-secondary" onAction="#irRegistro"/>
 

@@ -112,6 +112,36 @@ public class Zona implements EventoComponente {
         }
     }
 
+    public void generarAsientosAutomaticos() {
+
+        if (configuracionAsientos == null) {
+            configuracionAsientos = new ArrayList<>();
+        }
+
+        configuracionAsientos.clear();
+
+        int cantidadFilas = 10;
+        int asientosPorFila = (int) Math.ceil((double) capacidad / cantidadFilas);
+        int contador = 1;
+        for (int fila = 1; fila <= cantidadFilas; fila++) {
+            for (int numero = 1; numero <= asientosPorFila; numero++) {
+                if (contador > capacidad) {
+                    return;
+                }
+
+                Asiento asiento = new Asiento(
+                    numero,
+                    EstadoAsiento.DISPONIBLE,
+                    fila,
+                    contador
+                );
+
+                configuracionAsientos.add(asiento);
+                contador++;
+            }
+        }
+    }
+
     public void setSector(Sector sector) {
         this.sector = sector;
     }

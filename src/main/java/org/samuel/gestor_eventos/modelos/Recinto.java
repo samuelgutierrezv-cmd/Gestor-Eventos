@@ -107,7 +107,8 @@ public class Recinto implements EventoComponente {
             if (conjuntoZonas == null) {
                 conjuntoZonas = new ArrayList<>();
             }
-            return conjuntoZonas.add((Zona) componente);
+            conjuntoZonas.add((Zona) componente);
+            return true;
         }
         return false;
     }

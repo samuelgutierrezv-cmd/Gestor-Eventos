@@ -6,11 +6,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
+import org.samuel.gestor_eventos.enums.EstadoEvento;
 import org.samuel.gestor_eventos.modelos.Evento;
+import org.samuel.gestor_eventos.modelos.Usuario;
 import org.samuel.gestor_eventos.modelos.Zona;
 import javafx.event.ActionEvent;
 
@@ -46,6 +50,19 @@ public class DetalleEventoController {
         descripcionLabel.setText(evento.getDescripcion());
         recintoLabel.setText(evento.getRecinto().getNombre());
         zonasListView.getItems().setAll(evento.getRecinto().getConjuntoZonas());
+        zonasListView.setCellFactory(lv -> new ListCell<Zona>() {
+            @Override
+            protected void updateItem(Zona zona, boolean empty) {
+                super.updateItem(zona, empty);
+                if (empty || zona == null) {
+                    setText(null);
+                    setGraphic(null);
+                } else {
+                    setText(String.format("%s - $%.2f - Capacidad: %d",
+                            zona.getNombre(), zona.getPrecioBase(), zona.getCapacidad()));
+                }
+            }
+        });
     }
 
     public void setEscenaAnterior(Scene escena) {
@@ -72,6 +89,21 @@ public class DetalleEventoController {
 
     @FXML
     private void comprarEntradas(ActionEvent event) {
+        if (eventoSeleccionado.getEstado() != EstadoEvento.PUBLICADO && eventoSeleccionado.getEstado() != EstadoEvento.ACTIVO) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("El evento no está disponible");
+            alert.showAndWait();
+            return;
+        }
+
+        if (!eventoSeleccionado.hayDisponibilidad()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setHeaderText(null);
+            alert.setContentText("No hay asientos disponibles");
+            alert.showAndWait();
+            return;
+        }
 
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -92,6 +124,37 @@ public class DetalleEventoController {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void cancelarEventoTest() {
+
+        eventoSeleccionado.cancelar();
+    }
+
+    @FXML
+    private void verNotificaciones() {
+        Usuario usuario = Sesion.getUsuarioActual();
+        if (usuario == null || usuario.getNotificaciones().isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("No tienes notificaciones pendientes");
+            alert.show();
+            return;
+        }
+
+        StringBuilder sb = new StringBuilder();
+        for (String notif : usuario.getNotificaciones()) {
+            sb.append("• ").append(notif).append("\n\n");
+        }
+
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Notificaciones");
+        alert.setHeaderText("Tienes " + usuario.getNotificaciones().size() + " notificaciones");
+        alert.setContentText(sb.toString());
+        alert.show();
+
+        usuario.limpiarNotificaciones();
     }
 
     @FXML

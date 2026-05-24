@@ -13,7 +13,7 @@ public class FactoryUsuarios implements CreacionUsuarios{
     }
 
     @Override
-    public Persona creandoAdministrador(String numeroTelefono,int id ,String correoElectronico,String nombre,FactoryCompras factoryCompras, FactoryEventos factoryEventos, FactoryUsuarios factoryUsuarios) {
-        return Administrador.getInstance(numeroTelefono, id, correoElectronico, nombre, factoryCompras, factoryEventos, factoryUsuarios);
+    public Persona creandoAdministrador(String numeroTelefono,int id ,String correoElectronico,String nombre, FactoryCompras factoryCompras, FactoryEventos factoryEventos, FactoryUsuarios factoryUsuarios, String password) {
+        return new Administrador(nombre, id, correoElectronico, numeroTelefono, password, factoryCompras, factoryEventos, factoryUsuarios);
     }
 }

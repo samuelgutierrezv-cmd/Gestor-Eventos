@@ -27,6 +27,11 @@
                 prefHeight="45"
                 onAction="#abrirCompras"/>
 
+        <Button text="Mi Perfil"
+                prefWidth="250"
+                prefHeight="45"
+                onAction="#abrirPerfil"/>
+
         <Button text="Cerrar Sesión"
                 prefWidth="250"
                 prefHeight="45"

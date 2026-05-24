@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      alignment="CENTER"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.samuel.gestor_eventos.controler.TablaZonasController"
+      prefWidth="900"
+      prefHeight="600"
+      stylesheets="@admin.css">
+
+    <Label text="Lista de Zonas"
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+    <TableView fx:id="tablaZonas"
+               prefWidth="850"
+               prefHeight="500">
+
+        <columns>
+            <TableColumn fx:id="colId"
+                         text="ID"
+                         prefWidth="80"/>
+            <TableColumn fx:id="colNombre"
+                         text="Nombre"
+                         prefWidth="200"/>
+            <TableColumn fx:id="colSector"
+                         text="Sector"
+                         prefWidth="150"/>
+            <TableColumn fx:id="colCapacidad"
+                         text="Capacidad"
+                         prefWidth="150"/>
+            <TableColumn fx:id="colPrecio"
+                         text="Precio"
+                         prefWidth="150"/>
+        </columns>
+
+    </TableView>
+
+</VBox>

@@ -3,40 +3,19 @@ package org.samuel.gestor_eventos.controler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import org.samuel.gestor_eventos.enums.EstadoAsiento;
-import org.samuel.gestor_eventos.enums.EstadoCompras;
-import org.samuel.gestor_eventos.enums.EstadoEntrada;
-import org.samuel.gestor_eventos.enums.EstadoPago;
-
-import org.samuel.gestor_eventos.interfaces.comportamiento.PagoBancolombia;
-import org.samuel.gestor_eventos.interfaces.comportamiento.PagoNequi;
-import org.samuel.gestor_eventos.interfaces.comportamiento.PagoTarjeta;
-
+import org.samuel.gestor_eventos.enums.*;
+import org.samuel.gestor_eventos.interfaces.comportamiento.*;
 import org.samuel.gestor_eventos.interfaces.creacion.FactoryCompras;
-import org.samuel.gestor_eventos.interfaces.estructura.CompraFacade;
-
-import org.samuel.gestor_eventos.modelos.Asiento;
-import org.samuel.gestor_eventos.modelos.Compra;
-import org.samuel.gestor_eventos.modelos.Entrada;
-import org.samuel.gestor_eventos.modelos.Evento;
-import org.samuel.gestor_eventos.modelos.Facturas;
-import org.samuel.gestor_eventos.modelos.Pago;
-import org.samuel.gestor_eventos.controler.Sesion;
-import org.samuel.gestor_eventos.modelos.Zona;
+import org.samuel.gestor_eventos.interfaces.estructura.*;
+import org.samuel.gestor_eventos.modelos.*;
 
 import java.net.URL;
-
 import java.text.NumberFormat;
-
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -56,6 +35,11 @@ public class PagoControler implements Initializable {
     @FXML private Label lblResumenTotal;
     @FXML private Button btnVolver;
 
+    // Servicios adicionales
+    @FXML private CheckBox chkVIP;
+    @FXML private CheckBox chkParqueadero;
+    @FXML private CheckBox chkSeguro;
+
     private int cantidad = 1;
     private double precioUnitario = 120000;
     private double cargoServicio = 0.10;
@@ -63,16 +47,13 @@ public class PagoControler implements Initializable {
     private Scene escenaAnterior;
     private Evento eventoSeleccionado;
     private Zona zonaSeleccionada;
-    private ArrayList<Asiento> asientosSeleccionados = new ArrayList<>();;
+    private ArrayList<Asiento> asientosSeleccionados = new ArrayList<>();
 
-    private static final NumberFormat FMT = NumberFormat.getCurrencyInstance(
-        new Locale("es", "CO")
-    );
+    private static final NumberFormat FMT = NumberFormat.getCurrencyInstance(new Locale("es", "CO"));
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         lblPrecioEntrada.setText(formatear(precioUnitario));
-
         if (lblZona != null) {
             lblZona.setText("Zona");
         }
@@ -85,6 +66,12 @@ public class PagoControler implements Initializable {
 
     @FXML
     private void volver() {
+        // Liberar asientos reservados
+        if (!asientosSeleccionados.isEmpty()) {
+            for (Asiento asiento : asientosSeleccionados) {
+                asiento.setEstado(EstadoAsiento.DISPONIBLE);
+            }
+        }
         if (escenaAnterior != null) {
             Stage stage = (Stage) btnVolver.getScene().getWindow();
             stage.setScene(escenaAnterior);
@@ -108,7 +95,6 @@ public class PagoControler implements Initializable {
     }
 
     private void actualizarTotales() {
-
         double subtotal = precioUnitario * cantidad;
         double cargo = subtotal * cargoServicio;
         double total = subtotal + cargo;
@@ -146,95 +132,108 @@ public class PagoControler implements Initializable {
         double cargo = subtotal * cargoServicio;
         double total = subtotal + cargo;
 
+        // Crear pago
         Pago pago = new Pago(
-            1,
-            total,
-            new java.sql.Date(System.currentTimeMillis()),
-            EstadoPago.PENDIENTE,
-            metodoSeleccionado
+                RepositorioAdmin.getInstance().getPagos().size() + 1,
+                total,
+                new java.sql.Date(System.currentTimeMillis()),
+                EstadoPago.PENDIENTE,
+                metodoSeleccionado
         );
 
-        RepositorioAdmin.getInstance().getPagos().add(pago);
-
         switch (metodoSeleccionado) {
-            case "Nequi":
-                pago.setStrategy(new PagoNequi());
-                break;
-            case "Daviplata":
-                pago.setStrategy(new PagoBancolombia());
-                break;
-            default:
-                pago.setStrategy(new PagoTarjeta());
-                break;
+            case "Nequi": pago.setStrategy(new PagoNequi()); break;
+            case "Bancolombia": pago.setStrategy(new PagoBancolombia()); break;
+            case "Daviplata": pago.setStrategy(new PagoDaviplata()); break;
+            default: pago.setStrategy(new PagoTarjeta()); break;
         }
 
         boolean aprobado = pago.procesarPago();
+        RepositorioAdmin.getInstance().getPagos().add(pago);
 
-        FactoryCompras factoryCompras = new FactoryCompras();
-
+        // Crear entradas
         ArrayList<Entrada> entradas = new ArrayList<>();
-
         for (Asiento asiento : asientosSeleccionados) {
-
             Entrada entrada = new Entrada(
-                entradas.size() + 1,
-                zonaSeleccionada,
-                asiento,
-                precioUnitario,
-                EstadoEntrada.ACTIVA
+                    entradas.size() + 1,
+                    zonaSeleccionada,
+                    asiento,
+                    precioUnitario,
+                    EstadoEntrada.ACTIVA
             );
-
             entradas.add(entrada);
         }
 
+        // Crear compra base
+        FactoryCompras factoryCompras = new FactoryCompras();
         Compra compra = (Compra) factoryCompras.creacionCompra(
-            1,
-            Sesion.getUsuarioActual(),
-            (float) total,
-            eventoSeleccionado,
-            new java.sql.Date(System.currentTimeMillis()),
-            EstadoCompras.CREADA,
-            new ArrayList<>(),
-            new ArrayList<>(),
-            entradas
+                RepositorioAdmin.getInstance().getCompras().size() + 1,
+                Sesion.getUsuarioActual(),
+                (float) total,
+                eventoSeleccionado,
+                new java.sql.Date(System.currentTimeMillis()),
+                EstadoCompras.CREADA,
+                new ArrayList<>(),
+                new ArrayList<>(),
+                entradas
         );
+
+        eventoSeleccionado.agregarObserver(Sesion.getUsuarioActual());
+        System.out.println("✅ Usuario " + Sesion.getUsuarioActual().getNombre() + " suscrito al evento " + eventoSeleccionado.getNombre());
+
+        // APLICAR DECORATOR PARA SERVICIOS ADICIONALES
+        CompraInterface compraDecorada = new CompraSimple(compra);
+        ArrayList<String> servicios = new ArrayList<>();
+
+        if (chkVIP.isSelected()) {
+            compraDecorada = new DecoratorVIP(compraDecorada);
+            servicios.add("VIP");
+        }
+        if (chkParqueadero.isSelected()) {
+            compraDecorada = new DecoratorParqueadero(compraDecorada);
+            servicios.add("Parqueadero");
+        }
+        if (chkSeguro.isSelected()) {
+            servicios.add("Seguro");
+        }
+
+        // Actualizar valor final y servicios
+        compra.setValor(compraDecorada.definirValorTotal());
+        compra.setServiciosAdicionales(servicios);
 
         RepositorioAdmin.getInstance().getCompras().add(compra);
 
+        // CAMBIAR ESTADO SEGÚN PAGO
         if (aprobado) {
             compra.setEstado(EstadoCompras.PAGADA);
+            compra.setEstado(EstadoCompras.CONFIRMADA);
         } else {
-            compra.setEstado(EstadoCompras.CANCELADA);
+            compra.setEstado(EstadoCompras.INCIDENCIA);
         }
 
+        // Ejecutar flujo completo con Facade
         CompraFacade facade = new CompraFacade(pago.getStrategy());
-
         boolean resultado = facade.realizarCompraCompleta(compra);
 
-        if (resultado) {
+        if (resultado && aprobado) {
+            eventoSeleccionado.agregarObserver(Sesion.getUsuarioActual());
             for (Asiento asiento : asientosSeleccionados) {
                 asiento.setEstado(EstadoAsiento.VENDIDO);
             }
 
             Facturas factura = new Facturas(
-        RepositorioAdmin
-                .getInstance()
-                .getFacturas()
-                .size() + 1,
-                compra,
-                pago
+                    RepositorioAdmin.getInstance().getFacturas().size() + 1,
+                    compra,
+                    pago
             );
-
             RepositorioAdmin.getInstance().getFacturas().add(factura);
 
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/samuel/gestor_eventos/factura.fxml"));
                 Parent root = loader.load();
                 FacturaController controller = loader.getController();
-
                 controller.setFactura(factura);
                 controller.setEscenaAnterior(btnVolver.getScene());
-
                 Stage stage = (Stage) btnVolver.getScene().getWindow();
                 stage.setScene(new Scene(root));
                 stage.show();
@@ -242,18 +241,12 @@ public class PagoControler implements Initializable {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Error en la compra");
+            System.out.println("Error en la compra - Estado: " + compra.getEstado());
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setHeaderText(null);
+            alert.setContentText("Error al procesar el pago. La compra quedó en estado INCIDENCIA.");
+            alert.show();
         }
-    }
-
-    @FXML
-    private void cancelar() {
-        if (!asientosSeleccionados.isEmpty()) {
-            for (Asiento asiento : asientosSeleccionados) {
-                asiento.setEstado(EstadoAsiento.DISPONIBLE);
-            }
-        }
-        System.out.println("Compra cancelada");
     }
 
     private String formatear(double valor) {
@@ -262,17 +255,8 @@ public class PagoControler implements Initializable {
 
     public void setEventoSeleccionado(Evento evento) {
         this.eventoSeleccionado = evento;
-
         lblEventoNombre.setText(evento.getNombre());
-        lblEventoDetalle.setText(
-            "📍 "
-            + evento.getCiudad()
-            + " · 📅 "
-            + evento.getFecha()
-            + " · 🕐 "
-            + evento.getHora()
-        );
-
+        lblEventoDetalle.setText("📍 " + evento.getCiudad() + " · 📅 " + evento.getFecha() + " · 🕐 " + evento.getHora());
         lblEventoRecinto.setText("🏟 " + evento.getRecinto().getNombre());
     }
 

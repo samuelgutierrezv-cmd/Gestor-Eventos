@@ -7,58 +7,102 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
+import org.samuel.gestor_eventos.modelos.Administrador;
 
 public class LoginAdministrador {
 
     private Scene escenaAnterior;
 
-    @FXML
-    private Button btnVolver;
+    @FXML private Button btnVolver;
+    @FXML private TextField emailField;
+    @FXML private PasswordField passwordField;
+    @FXML private Button btnIngresar;
 
     // ==================== MÉTODO PARA RECIBIR ESCENA ANTERIOR ====================
+
     public void setEscenaAnterior(Scene escena) {
         this.escenaAnterior = escena;
     }
 
     // ==================== MÉTODO VOLVER ====================
+
     @FXML
     private void volver() {
-        if (escenaAnterior != null) {
-            Stage stage = (Stage) btnVolver.getScene().getWindow();
-            stage.setScene(escenaAnterior);
+
+        Stage stage = (Stage) btnVolver.getScene().getWindow();
+
+        Navegacion.cambiarVentana(stage, "/org/samuel/gestor_eventos/login.fxml");
+    }
+
+    // ==================== LOGIN ADMIN ====================
+
+    @FXML
+    private void login(ActionEvent event) {
+        String correo = emailField.getText();
+        String password = passwordField.getText();
+
+        for (Administrador admin : RepositorioAdmin.getInstance().getAdministradores()) {
+            if (admin.getCorroElectronico().equals(correo) && admin.getPassword().equals(password)) {
+                System.out.println("Bienvenido administrador " + admin.getNombre());
+                abrirPanelAdmin(event);
+                return;
+            }
+        }
+        System.out.println("Administrador no encontrado");
+    }
+
+    // ==================== IR A REGISTRO ====================
+
+    @FXML
+    private void irRegistro(ActionEvent event) {
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/samuel/gestor_eventos/login-Administrador.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    @FXML
-    private void login() {
+    // ==================== ABRIR PANEL ADMIN ====================
 
-    }
+    private void abrirPanelAdmin(ActionEvent event) {
 
-
-    @FXML
-    private void irRegistro(ActionEvent event) throws IOException {
         try {
-            // Guardamos la escena actual ANTES de cambiar
-            Scene escenaAnterior = ((Node) event.getSource()).getScene();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/samuel/gestor_eventos/registro-usuarios.fxml"));
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(
+                            "/org/samuel/gestor_eventos/administrador.fxml"
+                    )
+            );
+
             Parent root = loader.load();
 
-            // Obtenemos el controlador de la nueva pantalla
-            RegistroController pagoController = loader.getController();
+            AdminControler controller = loader.getController();
 
-            // Pasamos la escena anterior al controlador de Pago
-            pagoController.setEscenaAnterior(escenaAnterior);
+            Scene escenaActual =
+                    ((Node) event.getSource())
+                            .getScene();
 
-            // Cambiamos la escena
-            Stage ventana = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            ventana.setScene(new Scene(root));
-            ventana.show();
+            controller.setEscenaAnterior(escenaActual);
+
+            Stage stage =
+                    (Stage) ((Node) event.getSource())
+                            .getScene()
+                            .getWindow();
+
+            stage.setScene(new Scene(root));
+
+            stage.show();
 
         } catch (Exception e) {
+
             e.printStackTrace();
         }
     }

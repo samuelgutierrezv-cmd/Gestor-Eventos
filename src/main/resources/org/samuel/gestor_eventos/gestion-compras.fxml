@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      alignment="CENTER"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.samuel.gestor_eventos.controler.GestionComprasController"
+      prefWidth="1000"
+      prefHeight="700"
+      stylesheets="@admin.css">
+
+    <Label text="Gestión de Compras"
+           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+    <HBox spacing="15" alignment="CENTER_LEFT">
+        <Label text="Filtrar por estado:" textFill="white"/>
+        <ComboBox fx:id="filtroEstado" prefWidth="150"/>
+        <Label text="Fecha:" textFill="white"/>
+        <DatePicker fx:id="filtroFecha"/>
+        <Button text="Filtrar" onAction="#filtrar" styleClass="btn-accion"/>
+        <Label fx:id="lblTotalCompras" textFill="#22c55e" style="-fx-font-size: 14px;"/>
+    </HBox>
+
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+        <content>
+            <TableView fx:id="tablaCompras" prefWidth="950" prefHeight="450">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                    <TableColumn fx:id="colUsuario" text="Usuario" prefWidth="150"/>
+                    <TableColumn fx:id="colEvento" text="Evento" prefWidth="250"/>
+                    <TableColumn fx:id="colFecha" text="Fecha" prefWidth="150"/>
+                    <TableColumn fx:id="colTotal" text="Total" prefWidth="150"/>
+                    <TableColumn fx:id="colEstado" text="Estado" prefWidth="150"/>
+                </columns>
+            </TableView>
+        </content>
+    </ScrollPane>
+
+    <HBox spacing="15" alignment="CENTER">
+        <Button text="Cancelar Compra" onAction="#cancelarCompra" styleClass="btn-danger"/>
+        <Button text="Reembolsar Compra" onAction="#reembolsarCompra" styleClass="btn-accion"/>
+        <Button text="Volver" onAction="#volver" styleClass="btn-volver"/>
+    </HBox>
+
+</VBox>

@@ -236,7 +236,9 @@ public class Evento implements EventoComponente, Cloneable, Subject {
         }
         this.estado = EstadoEvento.CANCELADO;
 
-        notificarObservers("El evento " + nombre + " fue cancelado");
+        // Notificar a todos los observadores
+        String mensaje = "El evento " + nombre + " ha sido cancelado. Se procederá al reembolso de tu compra.";
+        notificarObservers(mensaje);
     }
 
     public boolean hayDisponibilidad() {

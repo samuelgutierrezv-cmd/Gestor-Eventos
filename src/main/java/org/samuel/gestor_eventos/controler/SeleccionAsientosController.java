@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.Node;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import org.samuel.gestor_eventos.enums.EstadoAsiento;
@@ -26,15 +27,17 @@ public class SeleccionAsientosController implements Initializable {
     @FXML private Label lblRecinto;
     @FXML private ListView<Zona> listZonas;
     @FXML private FlowPane panelAsientos;
+    @FXML private VBox contenedorAsientos;
+    @FXML private Button btnToggleAsientos;
 
     private Evento eventoSeleccionado;
     private Zona zonaSeleccionada;
     private final ArrayList<Asiento> asientosSeleccionados = new ArrayList<>();
     private Scene escenaAnterior;
+    private boolean asientosVisible = true;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
         listZonas.getSelectionModel().selectedItemProperty().addListener((obs, anterior, nuevaZona) -> {
             zonaSeleccionada = nuevaZona;
             cargarAsientos();
@@ -42,23 +45,14 @@ public class SeleccionAsientosController implements Initializable {
     }
 
     public void setEventoSeleccionado(Evento evento) {
-
         this.eventoSeleccionado = evento;
         lblEvento.setText(evento.getNombre());
-        lblDetalle.setText(
-            evento.getCiudad()
-            + " - "
-            + evento.getFecha()
-            + " - "
-            + evento.getHora()
-        );
-
+        lblDetalle.setText(evento.getCiudad() + " - " + evento.getFecha() + " - " + evento.getHora());
         lblRecinto.setText(evento.getRecinto().getNombre());
         listZonas.getItems().setAll(evento.getRecinto().getConjuntoZonas());
     }
 
     private void cargarAsientos() {
-
         panelAsientos.getChildren().clear();
 
         if (zonaSeleccionada == null) {
@@ -66,36 +60,25 @@ public class SeleccionAsientosController implements Initializable {
         }
 
         for (Asiento asiento : zonaSeleccionada.getConfiguracionAsientos()) {
-
-            Button btnAsiento = new Button(
-            "F"
-                + asiento.getFila()
-                + " - "
-                + asiento.getNumero()
-            );
-
+            Button btnAsiento = new Button("F" + asiento.getFila() + " - " + asiento.getNumero());
             btnAsiento.setPrefWidth(90);
             btnAsiento.setPrefHeight(45);
 
             if (asiento.getEstado() == EstadoAsiento.VENDIDO) {
-
                 btnAsiento.setDisable(true);
-                btnAsiento.setStyle("-fx-background-color: #ef4444;" + "-fx-text-fill: white;");
-
+                btnAsiento.setStyle("-fx-background-color: #ef4444; -fx-text-fill: white; -fx-background-radius: 8;");
             } else if (asientosSeleccionados.contains(asiento)) {
-                btnAsiento.setStyle("-fx-background-color: #2563eb;" + "-fx-text-fill: white;");
+                btnAsiento.setStyle("-fx-background-color: #2563eb; -fx-text-fill: white; -fx-background-radius: 8;");
             } else {
-                btnAsiento.setStyle("-fx-background-color: #22c55e;" + "-fx-text-fill: white;");
+                btnAsiento.setStyle("-fx-background-color: #22c55e; -fx-text-fill: white; -fx-background-radius: 8;");
             }
 
             btnAsiento.setOnAction(e -> {
-
                 if (asientosSeleccionados.contains(asiento)) {
                     asientosSeleccionados.remove(asiento);
                 } else {
                     asientosSeleccionados.add(asiento);
                 }
-
                 cargarAsientos();
             });
 
@@ -103,22 +86,23 @@ public class SeleccionAsientosController implements Initializable {
         }
     }
 
-    private void limpiarSeleccionVisual() {
-        cargarAsientos();
+    @FXML
+    private void toggleAsientos() {
+        asientosVisible = !asientosVisible;
+        contenedorAsientos.setManaged(asientosVisible);
+        contenedorAsientos.setVisible(asientosVisible);
+        btnToggleAsientos.setText(asientosVisible ? "▼ Ocultar asientos" : "▶ Mostrar asientos");
     }
 
     @FXML
     private void continuarPago() {
-
         if (zonaSeleccionada == null) {
-
             mostrarAlerta("Seleccione una zona");
             return;
         }
 
         if (asientosSeleccionados.isEmpty()) {
-
-            mostrarAlerta("Seleccione un asiento");
+            mostrarAlerta("Seleccione al menos un asiento");
             return;
         }
 
@@ -128,7 +112,6 @@ public class SeleccionAsientosController implements Initializable {
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/org/samuel/gestor_eventos/pago.fxml"));
-
             Parent root = loader.load();
             PagoControler controller = loader.getController();
 
@@ -148,6 +131,11 @@ public class SeleccionAsientosController implements Initializable {
 
     @FXML
     private void volver() {
+        // Liberar asientos reservados
+        for (Asiento asiento : asientosSeleccionados) {
+            asiento.setEstado(EstadoAsiento.DISPONIBLE);
+        }
+        asientosSeleccionados.clear();
 
         if (escenaAnterior != null) {
             Stage stage = (Stage) panelAsientos.getScene().getWindow();

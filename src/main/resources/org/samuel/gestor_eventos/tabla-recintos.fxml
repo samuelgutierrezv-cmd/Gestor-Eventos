@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      alignment="CENTER"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.samuel.gestor_eventos.controler.TablaRecintosController"
+      prefWidth="900"
+      prefHeight="600"
+      stylesheets="@admin.css">
+
+    <Label text="Lista de Recintos"
+           style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+    <TableView fx:id="tablaRecintos"
+               prefWidth="850"
+               prefHeight="500">
+
+        <columns>
+            <TableColumn fx:id="colId"
+                         text="ID"
+                         prefWidth="80"/>
+            <TableColumn fx:id="colNombre"
+                         text="Nombre"
+                         prefWidth="250"/>
+            <TableColumn fx:id="colCiudad"
+                         text="Ciudad"
+                         prefWidth="150"/>
+            <TableColumn fx:id="colDireccion"
+                         text="Dirección"
+                         prefWidth="250"/>
+            <TableColumn fx:id="colZonas"
+                         text="Zonas"
+                         prefWidth="80"/>
+        </columns>
+
+    </TableView>
+
+</VBox>

@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.control.ScrollPane?>
 
 <VBox
         prefHeight="680.0"
@@ -18,41 +19,43 @@
         stylesheets="@eventos.css"
         spacing="0">
 
-    <!-- ── HEADER ── -->
+    <!-- HEADER -->
     <HBox styleClass="header" spacing="16">
         <Label text="🗓  Gestor de Eventos" styleClass="header-title"/>
         <StackPane HBox.hgrow="ALWAYS"/>
-        <Button text="Cerrar sesión"  styleClass="button-secondary" onAction="#cerrarSesion"/>
-        <Button text="Volver" styleClass="button-secondary" fx:id="btnVolver"  onAction="#volver"/>
+        <Button text="Cerrar sesión" styleClass="button-secondary" onAction="#cerrarSesion"/>
+        <Button text="Volver" styleClass="button-secondary" fx:id="btnVolver" onAction="#volver"/>
     </HBox>
 
-    <!-- ── BARRA DE FILTROS ── -->
+    <!-- BARRA DE FILTROS -->
     <HBox styleClass="filtros-bar" spacing="12">
         <TextField fx:id="filtroCiudad"
                    promptText="🔍  Ciudad..."
                    styleClass="filtro-input"
                    onKeyReleased="#filtrar"
                    prefWidth="170"/>
-
         <ComboBox fx:id="filtroCategoria"
                   promptText="Categoría"
                   styleClass="filtro-combo"
                   onAction="#filtrar"
                   prefWidth="155"/>
-
         <ComboBox fx:id="filtroEstado"
                   promptText="Estado"
                   styleClass="filtro-combo"
                   onAction="#filtrar"
                   prefWidth="135"/>
-
         <StackPane HBox.hgrow="ALWAYS"/>
         <Label fx:id="contadorLabel" text="0 eventos" styleClass="contador-label"/>
     </HBox>
 
-    <!-- ── LISTA DE TARJETAS ── -->
-    <ListView fx:id="eventosListView"
-              styleClass="eventos-list"
-              VBox.vgrow="ALWAYS"/>
+    <!-- LISTA DE TARJETAS CON SCROLL -->
+    <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent; -fx-padding: 10;">
+        <content>
+            <ListView fx:id="eventosListView"
+                      styleClass="eventos-list"
+                      prefWidth="890"
+                      prefHeight="500"/>
+        </content>
+    </ScrollPane>
 
 </VBox>
