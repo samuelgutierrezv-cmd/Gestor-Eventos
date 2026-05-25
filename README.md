@@ -1,5 +1,7 @@
 Gestor de Eventos
+
 Plataforma de gestión de eventos y venta de entradas desarrollada en Java con JavaFX. Permite a los usuarios explorar eventos, seleccionar zonas y asientos, agregar servicios adicionales y realizar compras. Los administradores pueden gestionar el catálogo completo, visualizar métricas y generar reportes operativos.
+
 ---
 Integrantes
 
@@ -9,10 +11,13 @@ Integrantes
 
 ---
 📋 Descripción del proyecto
+
 El sistema cuenta con dos perfiles principales:
 Usuario: puede registrarse, explorar eventos disponibles con filtros por ciudad y categoría, seleccionar zonas y asientos, agregar servicios adicionales (VIP, parqueadero), realizar pagos simulados, consultar su historial de compras, descargar facturas y recibir notificaciones sobre cambios en sus eventos.
 Administrador: puede gestionar eventos, recintos, zonas y asientos, consultar y cancelar compras, registrar incidencias, y visualizar métricas del sistema mediante gráficas de barras, torta y líneas con JavaFX Charts. También puede generar reportes exportables en CSV y PDF.
+
 ---
+
 Instrucciones para compilar y ejecutar
 Requisitos
 Java 21 (JDK 21)
@@ -33,10 +38,13 @@ Correo: `samuel@gmail.com` | Contraseña: `123`
 Correo: `laura@gmail.com` | Contraseña: `123`
 Administrador:
 Correo: `admin@gmail.com` | Contraseña: `123`
+
 ---
+
 🧩 Patrones de diseño implementados
 Patrones Creacionales
 ---
+
 1. Singleton — `RepositorioAdmin`
 Requisito: RF-045 — La aplicación debe mantener un único repositorio central de datos accesible desde cualquier parte del sistema.
 Problema: Si múltiples instancias del repositorio existieran simultáneamente, los datos de usuarios, eventos y compras estarían desincronizados entre pantallas.
@@ -62,7 +70,9 @@ public class RepositorioAdmin {
     }
 }
 ```
+
 ---
+
 2. Factory Method — `FactoryCompras`, `FactoryEventos`, `FactoryUsuarios`
 Requisito: RF-034, RF-013, RF-020 — El sistema debe poder crear compras, eventos, entradas, recintos, zonas, usuarios y administradores de forma centralizada y extensible.
 Problema: Instanciar objetos directamente con `new` en los controladores genera acoplamiento fuerte y dificulta cambios futuros en la construcción de objetos.
@@ -87,7 +97,9 @@ public class FactoryCompras implements CreacionCompras {
     }
 }
 ```
+
 ---
+
 3. Builder — `Zona.ZonaBuilder`
 Requisito: RF-028, RF-029 — Las zonas deben configurarse con múltiples atributos opcionales (nombre, capacidad, sector, precio, asientos).
 Problema: El constructor de `Zona` requiere múltiples parámetros, lo que hace el código difícil de leer y propenso a errores al pasar argumentos en el orden incorrecto.
@@ -122,8 +134,11 @@ public static class ZonaBuilder {
 }
 ```
 ---
+
 Patrones Estructurales
+
 ---
+
 4. Decorator — `DecoratorVIP`, `DecoratorParqueadero`
 Requisito: RF-009 — El usuario puede agregar servicios adicionales a su compra (VIP, parqueadero) que modifican el valor total.
 Problema: Añadir servicios mediante herencia requeriría una subclase por cada combinación posible de servicios, lo cual es inmanejable.
@@ -150,6 +165,7 @@ public class DecoratorVIP extends Decorator {
 }
 ```
 ---
+
 5. Facade — `CompraFacade`
 Requisito: RF-007 — El proceso de compra involucra múltiples subsistemas: pago, generación de entradas, validación y facturación.
 Problema: Los controladores tendrían que coordinar directamente con `PagoService`, `EntradaService`, `FacturaService` y la cadena de responsabilidad, generando alto acoplamiento.
@@ -184,6 +200,7 @@ public class CompraFacade {
 }
 ```
 ---
+
 6. Composite — `EventoComponente`
 Requisito: RF-014, RF-015 — El sistema maneja una jerarquía de elementos: Recinto contiene Zonas, y las Zonas contienen Asientos.
 Problema: Tratar recintos, zonas y asientos como objetos completamente independientes complica las operaciones que deben aplicarse a toda la jerarquía.
@@ -215,6 +232,7 @@ public boolean actualizar(EventoComponente componente) {
 ```
 ---
 Patrones de Comportamiento
+
 ---
 7. Strategy — `Strategy`, `PagoNequi`, `PagoDaviplata`, `PagoTarjeta`
 Requisito: RF-007, RF-021 — El sistema debe permitir al usuario elegir entre distintos métodos de pago simulados al momento de confirmar una compra.
@@ -243,6 +261,7 @@ public class PagoDaviplata implements Strategy {
 }
 ```
 ---
+
 8. Observer — `Observer`, `Subject`, `Evento`
 Requisito: RF-008, RF-017 — Los usuarios deben recibir notificaciones cuando cambia el estado de un evento o de sus compras.
 Problema: Si el evento notificara directamente a cada usuario, existiría acoplamiento fuerte entre el modelo de evento y el de usuario.
@@ -267,6 +286,7 @@ public void notificarObservers(String mensaje) {
 }
 ```
 ---
+
 9. Chain of Responsibility — `Handler`, `ValidarDisponibilidad`, `ValidadorPago`, `GeneradorFacturaHandler`
 Requisito: RF-007 — El proceso de compra debe validarse en múltiples etapas: disponibilidad de entradas, validación del pago y generación de factura.
 Problema: Poner todas las validaciones en un solo método genera código monolítico, difícil de mantener y de extender con nuevas validaciones.
@@ -299,6 +319,7 @@ pago.setSiguiente(factura);
 disponibilidad.procesar(compra);
 ```
 ---
+
 ⚙️ Principios SOLID aplicados
 S — Single Responsibility Principle (Principio de Responsabilidad Única)
 Cada clase tiene una única razón para cambiar. Por ejemplo, `ReportesController` se encarga exclusivamente de generar y exportar reportes (CSV y PDF). La lógica de negocio de usuarios está en `Usuario.java`, la de compras en `Compra.java`, y la persistencia centralizada en `RepositorioAdmin`. Ninguna clase mezcla responsabilidades de presentación con lógica de negocio.
