@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="20"
+      alignment="CENTER"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.samuel.gestor_eventos.controler.ReportesController"
+      prefWidth="800"
+      prefHeight="600"
+      stylesheets="@admin.css">
+
+    <Label text="Generador de Reportes Operativos"
+           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+    <VBox spacing="15"
+          style="-fx-background-color: #1e293b; -fx-padding: 30; -fx-background-radius: 15; -fx-border-color: #334155; -fx-border-radius: 15;">
+
+        <HBox spacing="15" alignment="CENTER_LEFT">
+            <Label text="Tipo de Reporte:" textFill="white" style="-fx-font-weight: bold;"/>
+            <ComboBox fx:id="comboTipoReporte" prefWidth="250"/>
+        </HBox>
+
+        <HBox spacing="15" alignment="CENTER_LEFT">
+            <Label text="Fecha Inicio:" textFill="white" style="-fx-font-weight: bold;"/>
+            <DatePicker fx:id="datePickerInicio"/>
+            <Label text="Fecha Fin:" textFill="white" style="-fx-font-weight: bold;"/>
+            <DatePicker fx:id="datePickerFin"/>
+        </HBox>
+
+        <HBox spacing="15" alignment="CENTER">
+            <Button text="Generar CSV"
+                    onAction="#generarCSV"
+                    style="-fx-background-color: #16a34a; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 8;"/>
+            <Button text="Generar PDF"
+                    onAction="#generarPDF"
+                    style="-fx-background-color: #dc2626; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 10 20; -fx-background-radius: 8;"/>
+            <Button text="Volver"
+                    onAction="#volver"
+                    style="-fx-background-color: #475569; -fx-text-fill: white; -fx-padding: 10 20; -fx-background-radius: 8;"/>
+        </HBox>
+
+    </VBox>
+
+</VBox>

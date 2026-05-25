@@ -24,6 +24,8 @@
 
         <Button text="Crear cuenta" styleClass="button-secondary" onAction="#irRegistro"/>
 
+        <Button text="Ingresar como Administrador" styleClass="button-secondary" onAction="#loginAdministrador"/>
+
     </VBox>
 
 </VBox>

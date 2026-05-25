@@ -11,8 +11,12 @@ module org.samuel.gestor_eventos {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires java.desktop;
+    requires itextpdf;
 
     opens org.samuel.gestor_eventos to javafx.fxml;
+    opens org.samuel.gestor_eventos.modelos to javafx.base;
+
     exports org.samuel.gestor_eventos;
     exports org.samuel.gestor_eventos.controler;
     opens org.samuel.gestor_eventos.controler to javafx.fxml;

@@ -4,9 +4,9 @@ public abstract class Persona {
     protected String nombre;
     protected int di;
     protected String corroElectronico;
-    protected int numeroTelefono;
+    protected String numeroTelefono;
 
-    public Persona(String nombre, int di, String corroElectronico, int numeroTelefono) {
+    public Persona(String nombre, int di, String corroElectronico, String numeroTelefono) {
         this.nombre = nombre;
         this.di = di;
         this.corroElectronico = corroElectronico;
@@ -25,7 +25,7 @@ public abstract class Persona {
         return corroElectronico;
     }
 
-    public int getNumeroTelefono() {
+    public String getNumeroTelefono() {
         return numeroTelefono;
     }
 
@@ -41,7 +41,7 @@ public abstract class Persona {
         this.corroElectronico = corroElectronico;
     }
 
-    public void setNumeroTelefono(int numeroTelefono) {
+    public void setNumeroTelefono(String numeroTelefono) {
         this.numeroTelefono = numeroTelefono;
     }
 }

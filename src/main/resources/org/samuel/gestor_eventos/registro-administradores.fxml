@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.collections.FXCollections?>
+<VBox alignment="CENTER" spacing="15" stylesheets="@registro.css" xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.samuel.gestor_eventos.controler.RegistroAdminisitradores"
+      prefHeight="600.0" prefWidth="450.0">
+
+    <VBox styleClass="card" spacing="10" maxWidth="350">
+
+        <Label text="Registro Admin" styleClass="label-title"/>
+
+        <TextField fx:id="nombreField" promptText="Nombre completo"/>
+
+        <TextField fx:id="emailField" promptText="Correo Gmail"/>
+
+        <PasswordField fx:id="passwordField" promptText="Contraseña"/>
+
+        <TextField fx:id="telefonoField" promptText="Número de teléfono"/>
+
+        <Button text="Registrarse" styleClass="button-primary" onAction="#registrar"/>
+
+        <Button text="Volver" fx:id="btnVolver" styleClass="button-secondary" onAction="#volver"/>
+    </VBox>
+
+</VBox>

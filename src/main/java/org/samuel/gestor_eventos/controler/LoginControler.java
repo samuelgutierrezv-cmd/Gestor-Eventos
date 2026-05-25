@@ -9,48 +9,97 @@ import javafx.scene.Scene;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.io.IOException;
+import org.samuel.gestor_eventos.modelos.Usuario;
+import javafx.scene.control.Alert;
 
 public class LoginControler {
 
-    @FXML private TextField emailField;
-    @FXML private PasswordField passwordField;
+    @FXML
+    private TextField emailField;
 
     @FXML
-    private void login(ActionEvent event)throws IOException{
-        String email = emailField.getText().trim();
-        String pass = passwordField.getText().trim();
+    private PasswordField passwordField;
 
-        if( email == "user" && pass == "admin" ){
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("/org/samuel/gestor_eventos/eventos.fxml")
-            );
+    @FXML
+    private void login(ActionEvent event) {
+        String correo   = emailField.getText().trim();
+        String password = passwordField.getText();
 
-            Parent root = loader.load();
-            root.resize(600, 550);
-
-            Stage ventana = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            ventana.setScene(new Scene(root));
-            ventana.show();
-        }else{
-            System.out.println("eroor");
+        if (correo.isEmpty() || password.isEmpty()) {
+            mostrarAlerta("Por favor completa todos los campos.");
+            return;
         }
 
-        System.out.println("Login: " + email + " - " + pass);
+        Usuario usuarioEncontrado = null;
+        for (Usuario u : RepositorioAdmin.getInstance().getUsuarios()) {
+            if (u.getCorroElectronico().equals(correo) && u.getPassword().equals(password)) {
+                usuarioEncontrado = u;
+                break;
+            }
+        }
+
+        if (usuarioEncontrado == null) {
+            mostrarAlerta("Correo o contraseña incorrectos.");
+            return;
+        }
+
+        Sesion.setUsuarioActual(usuarioEncontrado);
+        abrirVentana(event, "/org/samuel/gestor_eventos/inicio.fxml");
+    }
+
+    private void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error de inicio de sesión");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 
     @FXML
-    private void irRegistro(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("/org/samuel/gestor_eventos/registro-usuarios.fxml")
+    private void irRegistro(ActionEvent event) {
+
+        Stage stage = (Stage)
+                ((Node) event.getSource())
+                        .getScene()
+                        .getWindow();
+
+        Navegacion.cambiarVentana(
+                stage,
+                "/org/samuel/gestor_eventos/registro-usuarios.fxml"
         );
+    }
 
-        Parent root = loader.load();
-        root.resize(600, 550);
+    @FXML
+    private void loginAdministrador(ActionEvent event) {
+        abrirVentana(
+                event,
+                "/org/samuel/gestor_eventos/login-Administrador.fxml"  // ← CORRECTO
+        );
+    }
 
-        Stage ventana = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        ventana.setScene(new Scene(root));
-        ventana.show();
+    private void abrirVentana(ActionEvent event, String ruta){
+
+        try{
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource(ruta)
+            );
+
+            Parent root = loader.load();
+
+            Stage stage = (Stage)
+                    ((javafx.scene.Node)
+                            event.getSource())
+                            .getScene()
+                            .getWindow();
+
+            stage.setScene(new Scene(root));
+
+            stage.show();
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+        }
     }
 }

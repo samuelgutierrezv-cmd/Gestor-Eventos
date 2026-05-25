@@ -1,6 +1,6 @@
-🎟️ Gestor-Eventos
+# Gestor de Eventos
 
-Gestor-Eventos es una plataforma diseñada para la gestión de eventos y la venta de entradas de manera eficiente. Permite a los usuarios explorar diferentes eventos, seleccionar zonas y asientos disponibles, agregar servicios adicionales y realizar compras de forma sencilla y segura.
+Plataforma de gestión de eventos y venta de entradas desarrollada en Java con JavaFX. Permite a los usuarios explorar eventos, seleccionar zonas y asientos, agregar servicios adicionales y realizar compras. Los administradores pueden gestionar el catálogo completo, visualizar métricas y generar reportes operativos.
 
 🚀 Características
 . 🔍 Exploración de eventos (conciertos, teatro, conferencias, etc.)
@@ -25,7 +25,7 @@ Administrador
 . Gestionar información del sistema
 🏗️ Objetivo del proyecto
 
-Desarrollar una solución digital que facilite la organización, administración y compra de entradas para eventos, mejorando la experiencia tanto para organizadores como para asistentes.
+## 🧩 Patrones de diseño implementados
 
 📌 Tecnologías (ejemplo)
 . Java

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox alignment="CENTER"
+      spacing="20"
+      prefHeight="640"
+      prefWidth="700"
+      styleClass="pane-principal"
+      stylesheets="@admin.css"
+      xmlns="http://javafx.com/javafx/21"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.samuel.gestor_eventos.controler.InicioController">
+
+    <children>
+
+        <Label text="GESTOR DE EVENTOS"
+               styleClass="header-title"/>
+
+        <Button text="Ver Eventos"
+                prefWidth="250"
+                prefHeight="45"
+                styleClass="btn-accion"
+                onAction="#abrirEventos"/>
+
+        <Button text="Mis Compras"
+                prefWidth="250"
+                prefHeight="45"
+                styleClass="btn-accion"
+                onAction="#abrirCompras"/>
+
+        <Button text="Mi Perfil"
+                prefWidth="250"
+                prefHeight="45"
+                styleClass="btn-accion"
+                onAction="#abrirPerfil"/>
+
+        <Button text="Cerrar Sesión"
+                prefWidth="250"
+                prefHeight="45"
+                styleClass="btn-volver"
+                onAction="#cerrarSesion"/>
+
+    </children>
+
+</VBox>

@@ -10,9 +10,9 @@ public class Recinto implements EventoComponente {
     private String direccion;
     private String nombre;
     private String ciudad;
-    private ArrayList<String> conjuntoZonas;
+    private ArrayList<Zona> conjuntoZonas;
 
-    public Recinto(int id, String direccion, ArrayList<String> conjuntoZonas, String ciudad, String nombre) {
+    public Recinto(int id, String direccion, ArrayList<Zona> conjuntoZonas, String ciudad, String nombre) {
         this.id = id;
         this.direccion = direccion;
         this.conjuntoZonas = conjuntoZonas;
@@ -32,7 +32,7 @@ public class Recinto implements EventoComponente {
         return ciudad;
     }
 
-    public ArrayList<String> getConjuntoZonas() {
+    public ArrayList<Zona> getConjuntoZonas() {
         return conjuntoZonas;
     }
 
@@ -48,7 +48,7 @@ public class Recinto implements EventoComponente {
         this.ciudad = ciudad;
     }
 
-    public void setConjuntoZonas(ArrayList<String> conjuntoZonas) {
+    public void setConjuntoZonas(ArrayList<Zona> conjuntoZonas) {
         this.conjuntoZonas = conjuntoZonas;
     }
 
@@ -62,21 +62,89 @@ public class Recinto implements EventoComponente {
 
     @Override
     public boolean actualizar(EventoComponente componente) {
+
+        if (componente instanceof Recinto) {
+            Recinto r = (Recinto) componente;
+
+            if (this.id == r.id) {
+                this.nombre = r.nombre;
+                this.direccion = r.direccion;
+                this.ciudad = r.ciudad;
+                return true;
+            }
+        }
+
+        if (conjuntoZonas != null) {
+            for (Zona z : conjuntoZonas) {
+                if (z.actualizar(componente)) {
+                    return true;
+                }
+            }
+        }
+
         return false;
     }
 
     @Override
-    public boolean elminarEvento(int id) {
-        return false;
+    public boolean eliminarEvento(int id) {
+        return conjuntoZonas.removeIf(z -> z.getId() == id);
     }
 
     @Override
     public EventoComponente buscar(int id) {
+        if (this.id == id) return this;
+
+        for (Zona z : conjuntoZonas) {
+            EventoComponente encontrado = z.buscar(id);
+            if (encontrado != null) return encontrado;
+        }
         return null;
     }
 
     @Override
-    public boolean guadarComponente(EventoComponente componente) {
+    public boolean guardarComponente(EventoComponente componente) {
+        if (componente instanceof Zona) {
+            if (conjuntoZonas == null) {
+                conjuntoZonas = new ArrayList<>();
+            }
+            conjuntoZonas.add((Zona) componente);
+            return true;
+        }
         return false;
+    }
+
+    // Funciones basicas
+
+    public void agregarZona(Zona zona) {
+        if (zona == null) throw new IllegalArgumentException("Zona no valida");
+
+        if (conjuntoZonas == null) {
+            conjuntoZonas = new ArrayList<>();
+        }
+
+        conjuntoZonas.add(zona);
+    }
+
+
+    public void eliminarZona(int idZona) {
+        Zona eliminar = null;
+
+        for (Zona z : conjuntoZonas) {
+            if (z.getId() == idZona) {
+                eliminar = z;
+                break;
+            }
+        }
+
+        if (eliminar == null) {
+            throw new IllegalArgumentException("La zona no existe");
+        }
+
+        conjuntoZonas.remove(eliminar);
+    }
+
+
+    public void agregarComponente(Zona zona) {
+        agregarZona(zona);
     }
 }

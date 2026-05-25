@@ -48,23 +48,49 @@ public class Asiento implements EventoComponente {
         this.estado = estado;
     }
 
+    // Funciones basicas
+
     @Override
     public boolean actualizar(EventoComponente componente) {
+        if (componente instanceof Asiento) {
+            Asiento a = (Asiento) componente;
+            if (this.id == a.id) {
+                this.numero = a.numero;
+                this.fila = a.fila;
+                this.estado = a.estado;
+                return true;
+            }
+        }
         return false;
     }
 
     @Override
-    public boolean elminarEvento(int id) {
-        return false;
+    public boolean eliminarEvento(int id) {
+        return this.id == id;
     }
 
     @Override
     public EventoComponente buscar(int id) {
-        return null;
+        return this.id == id ? this : null;
     }
 
     @Override
-    public boolean guadarComponente(EventoComponente componente) {
+    public boolean guardarComponente(EventoComponente componente) {
         return false;
+    }
+
+
+    public void cambiarEstado(EstadoAsiento nuevoEstado) {
+        if (nuevoEstado == null) {
+            throw new IllegalArgumentException("Estado inválido");
+        }
+        if (this.estado == nuevoEstado) {
+            throw new IllegalStateException("Ya tiene ese estado");
+        }
+        this.estado = nuevoEstado;
+    }
+
+    public boolean estaDisponible() {
+        return this.estado == EstadoAsiento.DISPONIBLE;
     }
 }

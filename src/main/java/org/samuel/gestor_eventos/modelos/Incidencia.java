@@ -81,4 +81,10 @@ public class Incidencia implements Pasarela {
     public boolean guardar(Pasarela pasarela) {
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "ID: " + id + " | Tipo: " + tipo + " | Fecha: " + fechaCreacion +
+                " | Entidad: " + entidadAfectada + " | Descripción: " + descripcion;
+    }
 }

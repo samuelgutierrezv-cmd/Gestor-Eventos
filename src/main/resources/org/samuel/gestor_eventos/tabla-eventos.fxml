@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox spacing="15"
+      alignment="CENTER"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.samuel.gestor_eventos.controler.TablaEventosController"
+      prefWidth="900"
+      prefHeight="600"
+      stylesheets="@admin.css">
+
+    <Label text="Lista de Eventos"
+           style="-fx-font-size: 24px; -fx-font-weight: bold;" />
+
+    <TableView fx:id="tablaEventos"
+               prefWidth="850"
+               prefHeight="500">
+
+        <columns>
+
+            <TableColumn fx:id="colId"
+                         text="ID"
+                         prefWidth="80"/>
+
+            <TableColumn fx:id="colNombre"
+                         text="Nombre"
+                         prefWidth="220"/>
+
+            <TableColumn fx:id="colCiudad"
+                         text="Ciudad"
+                         prefWidth="150"/>
+
+            <TableColumn fx:id="colFecha"
+                         text="Fecha"
+                         prefWidth="150"/>
+
+            <TableColumn fx:id="colEstado"
+                         text="Estado"
+                         prefWidth="150"/>
+
+        </columns>
+
+    </TableView>
+
+</VBox>

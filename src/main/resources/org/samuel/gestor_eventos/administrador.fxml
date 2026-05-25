@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.control.ScrollPane?>
+
+<AnchorPane
+        prefHeight="720.0"
+        prefWidth="900.0"
+        styleClass="root"
+        stylesheets="@admin.css"
+        xmlns="http://javafx.com/javafx/25"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="org.samuel.gestor_eventos.controler.AdminControler">
+
+   <VBox
+           AnchorPane.topAnchor="0"
+           AnchorPane.bottomAnchor="0"
+           AnchorPane.leftAnchor="0"
+           AnchorPane.rightAnchor="0">
+
+      <!-- HEADER -->
+      <HBox styleClass="header" alignment="CENTER_LEFT" spacing="16">
+         <padding><Insets top="16" right="28" bottom="16" left="28"/></padding>
+         <StackPane styleClass="avatar-wrap">
+            <ImageView fitHeight="44" fitWidth="44" preserveRatio="true">
+               <image>
+                  <Image url="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"/>
+               </image>
+            </ImageView>
+         </StackPane>
+         <VBox spacing="2">
+            <Label text="Panel de Administración" styleClass="header-title"/>
+            <Label text="Gestor de Eventos — Control total" styleClass="header-sub"/>
+         </VBox>
+         <Region HBox.hgrow="ALWAYS"/>
+         <Button fx:id="btnVolver"
+                 text="↩  Volver"
+                 onAction="#volver"
+                 styleClass="btn-volver"/>
+      </HBox>
+
+      <!-- CONTENIDO CON SCROLL -->
+      <ScrollPane fitToWidth="true" fitToHeight="true" VBox.vgrow="ALWAYS" style="-fx-background-color: transparent;">
+         <content>
+            <StackPane styleClass="body-bg">
+               <HBox spacing="22" alignment="TOP_CENTER">
+                  <padding><Insets top="30" right="30" bottom="30" left="30"/></padding>
+
+                  <!-- COLUMNA IZQUIERDA -->
+                  <VBox spacing="20" HBox.hgrow="ALWAYS">
+                     <!-- USUARIOS -->
+                     <VBox styleClass="card" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                           <Label text="👤" styleClass="card-icon"/>
+                           <Label text="Usuarios" styleClass="card-title"/>
+                        </HBox>
+                        <HBox spacing="10">
+                           <Button text="Actualizar" styleClass="btn-accion"
+                                   onAction="#abrirActualizarUsuario"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                           <Button text="Crear"      styleClass="btn-accion btn-primary"
+                                   onAction="#abrirCrearUsuario"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        </HBox>
+                        <HBox spacing="10">
+                           <Button text="Eliminar"   styleClass="btn-accion btn-danger"
+                                   onAction="#abrirBorrarUsuario"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                           <Button text="Buscar"     styleClass="btn-accion"
+                                   onAction="#abrirBuscarUsuario"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                           <Button text="Listar Usuarios"
+                                   styleClass="btn-accion"
+                                   onAction="#listarUsuarios"
+                                   HBox.hgrow="ALWAYS"
+                                   maxWidth="Infinity"/>
+                        </HBox>
+                     </VBox>
+
+                     <!-- EVENTOS -->
+                     <VBox styleClass="card" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                           <Label text="🗓" styleClass="card-icon"/>
+                           <Label text="Eventos" styleClass="card-title"/>
+                        </HBox>
+                        <HBox spacing="10">
+                           <Button text="Actualizar" styleClass="btn-accion"
+                                   onAction="#abrirActualizarEvento"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                           <Button text="Crear"      styleClass="btn-accion btn-primary"
+                                   onAction="#abrirCrearEvento"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        </HBox>
+                        <HBox spacing="10">
+                           <Button text="Eliminar"   styleClass="btn-accion btn-danger"
+                                   onAction="#abrirBorrarEvento"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                           <Button text="Buscar"     styleClass="btn-accion"
+                                   onAction="#abrirBuscarEvento"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                           <Button text="Listar Eventos"
+                                   styleClass="btn-accion"
+                                   onAction="#listarEventos"
+                                   HBox.hgrow="ALWAYS"
+                                   maxWidth="Infinity"/>
+                        </HBox>
+                     </VBox>
+                  </VBox>
+
+                  <!-- COLUMNA DERECHA -->
+                  <VBox spacing="20" HBox.hgrow="ALWAYS">
+                     <!-- ZONAS -->
+                     <VBox styleClass="card" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                           <Label text="📐" styleClass="card-icon"/>
+                           <Label text="Zonas" styleClass="card-title"/>
+                        </HBox>
+                        <HBox spacing="10">
+                           <Button text="Actualizar" styleClass="btn-accion"
+                                   onAction="#abrirActualizarZona"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                           <Button text="Crear"      styleClass="btn-accion btn-primary"
+                                   onAction="#abrirCrearZona"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        </HBox>
+                        <HBox spacing="10">
+                           <Button text="Eliminar"   styleClass="btn-accion btn-danger"
+                                   onAction="#abrirBorrarZona"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                           <Button text="Buscar"     styleClass="btn-accion"
+                                   onAction="#abrirBuscarZona"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                           <Button text="Listar Zonas"
+                                   styleClass="btn-accion"
+                                   onAction="#listarZonas"
+                                   HBox.hgrow="ALWAYS"
+                                   maxWidth="Infinity"/>
+                        </HBox>
+                     </VBox>
+
+                     <!-- RECINTOS -->
+                     <VBox styleClass="card" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                           <Label text="🏟" styleClass="card-icon"/>
+                           <Label text="Recintos" styleClass="card-title"/>
+                        </HBox>
+                        <HBox spacing="10">
+                           <Button text="Actualizar" styleClass="btn-accion"
+                                   onAction="#abrirActualizarRecinto"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                           <Button text="Crear"      styleClass="btn-accion btn-primary"
+                                   onAction="#abrirCrearRecinto"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                        </HBox>
+                        <HBox spacing="10">
+                           <Button text="Eliminar"   styleClass="btn-accion btn-danger"
+                                   onAction="#abrirBorrarRecinto"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                           <Button text="Buscar"     styleClass="btn-accion"
+                                   onAction="#abrirBuscarRecinto"
+                                   HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+                           <Button text="Listar Recintos"
+                                   styleClass="btn-accion"
+                                   onAction="#listarRecintos"
+                                   HBox.hgrow="ALWAYS"
+                                   maxWidth="Infinity"/>
+                        </HBox>
+                     </VBox>
+
+                     <!-- HERRAMIENTAS -->
+                     <VBox styleClass="card card-tools" spacing="12">
+                        <HBox alignment="CENTER_LEFT" spacing="8">
+                           <Label text="⚙" styleClass="card-icon"/>
+                           <Label text="Herramientas" styleClass="card-title"/>
+                        </HBox>
+
+                        <Button text="🛒 Gestionar Compras"
+                                styleClass="btn-tool"
+                                onAction="#abrirGestionCompras"
+                                maxWidth="Infinity"/>
+
+                        <!-- Botón existente de métricas -->
+                        <Button text="📊  Generar Métricas"
+                                styleClass="btn-tool"
+                                onAction="#abrirMetricas"
+                                maxWidth="Infinity"/>
+
+                        <!-- NUEVO BOTÓN DE REPORTES -->
+                        <Button text="📄  Generar Reportes Operativos"
+                                styleClass="btn-tool"
+                                onAction="#abrirReportes"
+                                maxWidth="Infinity"/>
+
+                        <!-- En la sección HERRAMIENTAS -->
+                        <Button text="🚨  Gestionar Incidencias"
+                                styleClass="btn-tool btn-tool-red"
+                                onAction="#abrirIncidencias"
+                                maxWidth="Infinity"/>
+                     </VBox>
+                  </VBox>
+               </HBox>
+            </StackPane>
+         </content>
+      </ScrollPane>
+   </VBox>
+</AnchorPane>

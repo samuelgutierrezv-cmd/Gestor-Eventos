@@ -1,0 +1,184 @@
+/* ═══════════════════════════════════════════════════════════════
+   admin.css  —  Panel de Administración
+   Tema: oscuro profundo con acentos azul eléctrico
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── RAÍZ ── */
+.root {
+    -fx-font-family: "Segoe UI", sans-serif;
+    -fx-background-color: #0b1120;
+}
+
+/* ── FONDO DEL CUERPO ── */
+.body-bg {
+    -fx-background-color: #0b1120;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════════ */
+.header {
+    -fx-background-color: #111827;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 14, 0, 0, 4);
+}
+
+.avatar-wrap {
+    -fx-background-color: #1e3a5f;
+    -fx-background-radius: 50;
+    -fx-min-width:  52;
+    -fx-min-height: 52;
+    -fx-max-width:  52;
+    -fx-max-height: 52;
+}
+
+.header-title {
+    -fx-text-fill: #f0f6ff;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+.header-sub {
+    -fx-text-fill: #4a6a90;
+    -fx-font-size: 11px;
+}
+
+.btn-volver {
+    -fx-background-color: transparent;
+    -fx-text-fill: #4d9fff;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-border-color: #2a4a6e;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 8 20 8 20;
+    -fx-cursor: hand;
+}
+
+.btn-volver:hover {
+    -fx-background-color: #1a3a5c;
+    -fx-border-color: #4d9fff;
+    -fx-text-fill: #80bcff;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   CARDS
+   ═══════════════════════════════════════════════════════════════ */
+.card {
+    -fx-background-color: #111827;
+    -fx-background-radius: 14;
+    -fx-padding: 18;
+    -fx-border-color: #1a2d45;
+    -fx-border-radius: 14;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 12, 0, 0, 4);
+}
+
+.card:hover {
+    -fx-border-color: #2a4a70;
+}
+
+/* Card de Herramientas con acento distinto */
+.card-tools {
+    -fx-border-color: #1e3a5f;
+    -fx-background-color: #0f1e30;
+}
+
+/* ── Encabezado de cada card ── */
+.card-icon {
+    -fx-font-size: 18px;
+}
+
+.card-title {
+    -fx-text-fill: #4d9fff;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-color: #0d2035;
+    -fx-background-radius: 6;
+    -fx-padding: 3 12 3 12;
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BOTONES DE ACCIÓN  (Actualizar / Crear / Eliminar / Buscar)
+   ═══════════════════════════════════════════════════════════════ */
+.btn-accion {
+    -fx-background-color: #1a2535;
+    -fx-text-fill: #94a3b8;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 9;
+    -fx-border-color: #243347;
+    -fx-border-radius: 9;
+    -fx-border-width: 1.2;
+    -fx-padding: 10 8 10 8;
+    -fx-cursor: hand;
+}
+
+.btn-accion:hover {
+    -fx-background-color: #1e3248;
+    -fx-text-fill: #e2e8f0;
+    -fx-border-color: #4d9fff;
+}
+
+/* Crear — siempre azul resaltado */
+.btn-primary {
+    -fx-background-color: #1a3a5c;
+    -fx-text-fill: #4d9fff;
+    -fx-border-color: #2a5a90;
+}
+
+.btn-primary:hover {
+    -fx-background-color: #4d9fff;
+    -fx-text-fill: #ffffff;
+    -fx-border-color: #4d9fff;
+    -fx-effect: dropshadow(gaussian, rgba(77,159,255,0.4), 10, 0, 0, 2);
+}
+
+/* Eliminar — tono rojo */
+.btn-danger {
+    -fx-background-color: #2d1218;
+    -fx-text-fill: #f87171;
+    -fx-border-color: #5a1e26;
+}
+
+.btn-danger:hover {
+    -fx-background-color: #7f1d1d;
+    -fx-text-fill: #fecaca;
+    -fx-border-color: #ef4444;
+    -fx-effect: dropshadow(gaussian, rgba(239,68,68,0.35), 10, 0, 0, 2);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   BOTONES HERRAMIENTAS
+   ═══════════════════════════════════════════════════════════════ */
+.btn-tool {
+    -fx-background-color: #1a2d45;
+    -fx-text-fill: #60a5fa;
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-border-color: #2a4a70;
+    -fx-border-radius: 10;
+    -fx-border-width: 1.2;
+    -fx-padding: 12 16 12 16;
+    -fx-cursor: hand;
+}
+
+.btn-tool:hover {
+    -fx-background-color: #4d9fff;
+    -fx-text-fill: white;
+    -fx-border-color: #4d9fff;
+    -fx-effect: dropshadow(gaussian, rgba(77,159,255,0.4), 12, 0, 0, 3);
+}
+
+.btn-tool-red {
+    -fx-background-color: #2d1218;
+    -fx-text-fill: #f87171;
+    -fx-border-color: #5a1e26;
+}
+
+.btn-tool-red:hover {
+    -fx-background-color: #991b1b;
+    -fx-text-fill: white;
+    -fx-border-color: #ef4444;
+    -fx-effect: dropshadow(gaussian, rgba(239,68,68,0.4), 12, 0, 0, 3);
+}

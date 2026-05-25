@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<ScrollPane
+        fitToWidth="true"
+        fitToHeight="true"
+        style="-fx-background-color: #0f172a; -fx-background: transparent;"
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="org.samuel.gestor_eventos.controler.SeleccionAsientosController">
+
+    <content>
+        <VBox spacing="20" style="-fx-padding: 25; -fx-background-color: #0f172a;">
+            <HBox spacing="15" alignment="CENTER_LEFT">
+                <Button text="Volver"
+                        onAction="#volver"
+                        style="-fx-background-color: #475569; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 8 20; -fx-background-radius: 8;"/>
+                <Label text="Selección de Asientos"
+                       style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            </HBox>
+
+            <VBox spacing="5" style="-fx-padding: 0 0 10 0;">
+                <Label fx:id="lblEvento"
+                       style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #e2e8f0;"/>
+                <Label fx:id="lblDetalle" style="-fx-text-fill: #94a3b8;"/>
+                <Label fx:id="lblRecinto" style="-fx-text-fill: #94a3b8;"/>
+            </VBox>
+
+            <Separator style="-fx-background-color: #334155;"/>
+
+            <Label text="Selecciona una zona:"
+                   style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <ListView fx:id="listZonas"
+                      prefHeight="120"
+                      style="-fx-background-color: #1e293b; -fx-background-radius: 10; -fx-border-color: #334155; -fx-border-radius: 10;">
+                <style>
+                    .list-cell {
+                    -fx-background-color: #1e293b;
+                    -fx-text-fill: #e2e8f0;
+                    -fx-font-size: 14px;
+                    -fx-padding: 10;
+                    }
+                    .list-cell:filled:selected {
+                    -fx-background-color: #3b82f6;
+                    -fx-text-fill: white;
+                    }
+                </style>
+            </ListView>
+
+            <Separator style="-fx-background-color: #334155;"/>
+
+            <!-- BOTÓN PARA COLAPSAR/EXPANDIR ASIENTOS -->
+            <HBox alignment="CENTER_LEFT" spacing="15">
+                <Label text="Selecciona un asiento:"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Button fx:id="btnToggleAsientos"
+                        text="▼ Ocultar asientos"
+                        onAction="#toggleAsientos"
+                        style="-fx-background-color: #1e293b; -fx-text-fill: #60a5fa; -fx-border-color: #3b82f6; -fx-border-radius: 8; -fx-background-radius: 8; -fx-font-size: 12px; -fx-padding: 5 15;"/>
+            </HBox>
+
+            <!-- PANEL DE ASIENTOS (colapsable) -->
+            <VBox fx:id="contenedorAsientos"
+                  spacing="10"
+                  style="-fx-padding: 15; -fx-background-color: #1e293b; -fx-background-radius: 10; -fx-border-color: #334155; -fx-border-radius: 10;">
+                <FlowPane fx:id="panelAsientos"
+                          hgap="12"
+                          vgap="12"
+                          prefWrapLength="700"/>
+            </VBox>
+
+            <HBox alignment="CENTER" style="-fx-padding: 15 0 0 0;">
+                <Button text="Continuar al pago"
+                        onAction="#continuarPago"
+                        style="-fx-background-color: #2563eb; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-padding: 12 30 12 30; -fx-background-radius: 10;"/>
+            </HBox>
+        </VBox>
+    </content>
+</ScrollPane>

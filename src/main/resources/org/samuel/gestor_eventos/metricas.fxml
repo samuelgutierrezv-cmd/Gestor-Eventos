@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.chart.*?>
+
+<VBox spacing="20"
+      alignment="CENTER"
+      xmlns="http://javafx.com/javafx/25"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.samuel.gestor_eventos.controler.MetricasController"
+      prefWidth="900"
+      prefHeight="700"
+      stylesheets="@admin.css">
+
+    <Label text="Métricas del Sistema"
+           style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+    <!-- ✅ ESTOS LABELS DEBEN TENER fx:id -->
+    <HBox spacing="15" alignment="CENTER">
+        <VBox spacing="5" alignment="CENTER_LEFT">
+            <Label fx:id="lblUsuarios" text="Usuarios: 0" style="-fx-text-fill: #e2e8f0;"/>
+            <Label fx:id="lblEventos" text="Eventos: 0" style="-fx-text-fill: #e2e8f0;"/>
+            <Label fx:id="lblEventosActivos" text="Eventos activos: 0" style="-fx-text-fill: #e2e8f0;"/>
+            <Label fx:id="lblEventosCancelados" text="Eventos cancelados: 0" style="-fx-text-fill: #e2e8f0;"/>
+            <Label fx:id="lblCompras" text="Compras: 0" style="-fx-text-fill: #e2e8f0;"/>
+            <Label fx:id="lblIngresos" text="Ingresos: $0" style="-fx-text-fill: #22c55e; -fx-font-weight: bold;"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="20" alignment="CENTER">
+        <VBox spacing="10" alignment="CENTER">
+            <Label text="Ocupación por Zona" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+            <PieChart fx:id="pieChartOcupacion" prefWidth="350" prefHeight="300"/>
+        </VBox>
+
+        <VBox spacing="10" alignment="CENTER">
+            <Label text="Ingresos por Evento" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+            <BarChart fx:id="barChartIngresos" prefWidth="350" prefHeight="300">
+                <xAxis>
+                    <CategoryAxis label="Eventos"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Ingresos ($)"/>
+                </yAxis>
+            </BarChart>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="20" alignment="CENTER">
+        <VBox spacing="10" alignment="CENTER">
+            <Label text="Ventas por Periodo" style="-fx-text-fill: white; -fx-font-weight: bold;"/>
+            <LineChart fx:id="lineChartVentas" prefWidth="700" prefHeight="250">
+                <xAxis>
+                    <CategoryAxis label="Periodo"/>
+                </xAxis>
+                <yAxis>
+                    <NumberAxis label="Ventas"/>
+                </yAxis>
+            </LineChart>
+        </VBox>
+    </HBox>
+
+    <Button text="Volver"
+            onAction="#volver"
+            style="-fx-background-color: #475569; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8;"/>
+
+</VBox>

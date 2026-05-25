@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane
+        fitToWidth="true"
+        fitToHeight="true"
+        style="-fx-background-color: transparent; -fx-background: transparent;"
+        xmlns="http://javafx.com/javafx/21"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="org.samuel.gestor_eventos.controler.PagoControler">
+
+    <content>
+        <BorderPane prefWidth="900" prefHeight="650" style="-fx-background-color: #0f172a;">
+            <top>
+                <VBox spacing="10" style="-fx-padding: 20; -fx-background-color: #0f172a;">
+                    <Label text="Pago de Entradas"
+                           style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <Label fx:id="lblEventoNombre" style="-fx-font-size: 20px; -fx-text-fill: #e2e8f0;"/>
+                    <Label fx:id="lblEventoDetalle" style="-fx-text-fill: #94a3b8;"/>
+                    <Label fx:id="lblEventoRecinto" style="-fx-text-fill: #94a3b8;"/>
+                </VBox>
+            </top>
+
+            <center>
+                <VBox spacing="15"
+                      alignment="CENTER"
+                      style="-fx-padding: 20; -fx-background-color: #0f172a;">
+                    <Label fx:id="lblZona" style="-fx-font-size: 18px; -fx-text-fill: #e2e8f0;"/>
+                    <Label fx:id="lblPrecioEntrada" style="-fx-font-size: 18px; -fx-text-fill: #22c55e;"/>
+
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="-"
+                                onAction="#decrementar"
+                                style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 16px; -fx-min-width: 30;"/>
+                        <Label fx:id="lblCantidad"
+                               text="1"
+                               style="-fx-font-size: 18px; -fx-text-fill: white; -fx-min-width: 30; -fx-alignment: center;"/>
+                        <Button text="+"
+                                onAction="#incrementar"
+                                style="-fx-background-color: #3b82f6; -fx-text-fill: white; -fx-font-size: 16px; -fx-min-width: 30;"/>
+                    </HBox>
+
+                    <Separator style="-fx-background-color: #334155;"/>
+
+                    <Label text="Servicios Adicionales"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <HBox spacing="15" alignment="CENTER">
+                        <CheckBox fx:id="chkVIP"
+                                  text="Acceso VIP (+$100,000)"
+                                  style="-fx-text-fill: #e2e8f0;"/>
+                        <CheckBox fx:id="chkParqueadero"
+                                  text="Parqueadero (+$50,000)"
+                                  style="-fx-text-fill: #e2e8f0;"/>
+                        <CheckBox fx:id="chkSeguro"
+                                  text="Seguro cancelación (+$20,000)"
+                                  style="-fx-text-fill: #e2e8f0;"/>
+                    </HBox>
+
+                    <Separator style="-fx-background-color: #334155;"/>
+
+                    <Label text="Método de pago"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <HBox spacing="10" alignment="CENTER">
+                        <Button text="Tarjeta"
+                                onAction="#seleccionarTarjetaCredito"
+                                style="-fx-background-color: #1e293b; -fx-text-fill: white; -fx-border-color: #3b82f6; -fx-border-radius: 8;"/>
+                        <Button text="Nequi"
+                                onAction="#seleccionarNequi"
+                                style="-fx-background-color: #1e293b; -fx-text-fill: white; -fx-border-color: #3b82f6; -fx-border-radius: 8;"/>
+                        <Button text="Daviplata"
+                                onAction="#seleccionarDaviplata"
+                                style="-fx-background-color: #1e293b; -fx-text-fill: white; -fx-border-color: #3b82f6; -fx-border-radius: 8;"/>
+                    </HBox>
+
+                    <Label fx:id="lblMetodoSeleccionado"
+                           text="Tarjeta de Crédito"
+                           style="-fx-text-fill: #60a5fa; -fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+                    <Separator style="-fx-background-color: #334155;"/>
+
+                    <VBox alignment="CENTER_LEFT" spacing="5" style="-fx-padding: 10; -fx-background-color: #1e293b; -fx-background-radius: 10; -fx-min-width: 300;">
+                        <Label fx:id="lblSubtotal" text="Subtotal:" style="-fx-text-fill: #94a3b8;"/>
+                        <Label fx:id="lblResumenSubtotal" style="-fx-text-fill: #e2e8f0;"/>
+                        <Label fx:id="lblResumenCargo" style="-fx-text-fill: #e2e8f0;"/>
+                        <Label fx:id="lblResumenTotal"
+                               style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: #22c55e;"/>
+                    </VBox>
+                </VBox>
+            </center>
+
+            <bottom>
+                <HBox spacing="20"
+                      alignment="CENTER"
+                      style="-fx-padding: 20; -fx-background-color: #0f172a;">
+                    <Button text="Volver"
+                            fx:id="btnVolver"
+                            onAction="#volver"
+                            style="-fx-background-color: #475569; -fx-text-fill: white; -fx-font-size: 14px; -fx-padding: 10 20; -fx-background-radius: 8;"/>
+                    <Button text="Confirmar compra"
+                            onAction="#confirmarCompra"
+                            style="-fx-background-color: #22c55e; -fx-text-fill: white; -fx-font-size: 14px; -fx-font-weight: bold; -fx-padding: 10 25; -fx-background-radius: 8;"/>
+                </HBox>
+            </bottom>
+        </BorderPane>
+    </content>
+</ScrollPane>
