@@ -2,9 +2,11 @@ Gestor de Eventos
 Plataforma de gestión de eventos y venta de entradas desarrollada en Java con JavaFX. Permite a los usuarios explorar eventos, seleccionar zonas y asientos, agregar servicios adicionales y realizar compras. Los administradores pueden gestionar el catálogo completo, visualizar métricas y generar reportes operativos.
 ---
 Integrantes
-Gina Marcela Tamayo Castañeda
-Samuel Gutierrez Vega
-Andrés Sebastián Cardona Murcia
+
+- Gina Marcela Tamayo Castañeda
+- Samuel Gutierrez Vega
+- Andrés Sebastián Cardona Murcia
+
 ---
 📋 Descripción del proyecto
 El sistema cuenta con dos perfiles principales:
