@@ -389,11 +389,11 @@ El diagrama de clases se encuentra en el archivo `diagrama-clases.png` en la ra�
 ---
 
 Tecnologías utilizadas
-Java 21
-JavaFX 21
-Maven
-iText 5 (generación de PDF)
-JavaFX Charts (métricas y gráficas)
+- Java 21
+- JavaFX 21
+- Maven
+- iText 5 (generación de PDF)
+- JavaFX Charts (métricas y gráficas)
 
 ---
 📁 Estructura del proyecto
