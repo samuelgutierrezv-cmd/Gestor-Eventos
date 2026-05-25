@@ -383,14 +383,18 @@ public class CompraFacade {
 ```
 ---
 Diagrama de clases
+
 El diagrama de clases se encuentra en el archivo `diagrama-clases.png` en la raíz del repositorio. Cubre las entidades principales: `Usuario`, `Administrador`, `Evento`, `Recinto`, `Zona`, `Asiento`, `Compra`, `Entrada`, `Pago`, `Facturas`, `Incidencia`, y las clases de soporte de patrones (`Strategy`, `Observer`, `Decorator`, `Handler`, `EventoComponente`, `CompraFacade`).
+
 ---
+
 Tecnologías utilizadas
 Java 21
 JavaFX 21
 Maven
 iText 5 (generación de PDF)
 JavaFX Charts (métricas y gráficas)
+
 ---
 📁 Estructura del proyecto
 ```
